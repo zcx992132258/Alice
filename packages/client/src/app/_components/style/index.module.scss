@@ -1,0 +1,48 @@
+.container {
+  .header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e7ecef;
+    padding: 0;
+    .btn {
+      font-size: 16px;
+      height: 64px;
+      width: 64px;
+      border-right: 1px solid #e7ecef;
+      border-radius: 0;
+    }
+  }
+  .siderMenu {
+    background: #ffffff;
+    border-radius: 0px 8px 8px 0px;
+    :global(.ant-layout-sider-children) {
+      display: flex;
+      .menuWrap {
+        width: 100px;
+        height: 100%;
+        border-right: 1px solid #e7ecef;
+        .menuItem {
+          border-bottom: 1px solid #e7ecef;
+          border-right: none;
+        }
+      }
+      .dragWrap {
+        flex: 1;
+        height: 100%;
+        overflow: auto;
+        padding: 10px;
+        .dragItem {
+          box-shadow: 0 6px 16px -8px #00000014, 0 9px 28px #0000000d,
+            0 12px 48px 16px #00000008;
+          width: 40%;
+          height: 110px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          :global(span) {
+            user-select: none;
+          }
+        }
+      }
+    }
+  }
+}

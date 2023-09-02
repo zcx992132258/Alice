@@ -1,0 +1,32 @@
+{
+  "name": "lowCode",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clientDev": " cd packages/client/ && pnpm run dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.39.7",
+    "eslint": "^8.47.0",
+    "eslint-config-standard-jsx": "^11.0.0",
+    "lint-staged": "^14.0.1",
+    "simple-git-hooks": "^2.9.0",
+    "typescript": "5.1.6"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
