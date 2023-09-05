@@ -7,7 +7,7 @@ export function CollapsedButton() {
   const { collapsed, setCollapsed } = usePageContext()
   return (
     <Button
-      type="text"
+      type='text'
       className={style.btn}
       icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       onClick={() => setCollapsed(!collapsed)}

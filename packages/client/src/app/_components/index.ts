@@ -4,6 +4,8 @@ import style from './style/index.module.scss'
 
 export * from './Context'
 
+export * from './LayoutComponent'
+
 export const SiderMenu = lazy(() => import('./SiderMenu'))
 
 export const CollapseMenu = lazy(() => import('./CollapsedButton'))

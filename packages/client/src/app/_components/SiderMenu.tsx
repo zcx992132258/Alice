@@ -7,29 +7,19 @@ import { DragItem, DragWrap, style, usePageContext } from '.'
 
 const { Sider } = Layout
 
-const MenuData = [
-  {
-    label: '折线图',
-    data: [
-      {
-        name: '基础折线图',
-      },
-    ],
-  },
-]
-
 export function SiderMenu() {
-  const items: MenuProps['items'] = MenuData.map((data, index) => ({
+  const { menuData } = usePageContext()
+  const items: MenuProps['items'] = menuData.map(data => ({
     key: data.label,
     label: data.label,
   }))
 
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([MenuData[0].label])
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([menuData[0].label])
 
   const selectedMenuData = useMemo(() => {
     const value = first(selectedKeys)
     if (value) {
-      return MenuData.find(v => v.label === value)?.data || []
+      return menuData.find(v => v.label === value)?.data || []
     }
     return []
   }, [selectedKeys])
@@ -44,7 +34,6 @@ export function SiderMenu() {
       style={{
         background: '#ffffff',
       }}
-
       className={style.siderMenu}
     >
       <div className={style.menuWrap}>
@@ -52,15 +41,15 @@ export function SiderMenu() {
           onClick={data => setSelectedKeys([data.key])}
           selectedKeys={selectedKeys}
           className={style.menuItem}
-          theme="light"
-          mode="inline"
+          theme='light'
+          mode='inline'
           items={items}
         />
       </div>
       <DragWrap>
         {
           selectedMenuData.map((v) => {
-            return <DragItem key={v.name} {...v}></DragItem>
+            return <DragItem key={v.name} {...v} />
           })
         }
       </DragWrap>

@@ -1,1 +1,2 @@
-export const A = 1
+export * from './src/Menu'
+export * from './src/Component'

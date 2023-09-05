@@ -13,9 +13,9 @@ export default function StyledComponentsRegistry({
 
   useServerInsertedHTML(() => (
     <style
-      id="antd"
+      id='antd'
       dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }}
-    ></style>
+    />
   ))
 
   return <StyleProvider cache={cache}>{children}</StyleProvider>

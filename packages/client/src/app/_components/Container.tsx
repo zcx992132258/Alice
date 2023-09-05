@@ -1,40 +1,49 @@
 'use client'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
-import GridLayout, { Responsive, WidthProvider } from 'react-grid-layout'
+import type { Layout } from 'react-grid-layout'
+import { Responsive, WidthProvider } from 'react-grid-layout'
+import type { IMenuData } from '@lowCode/types'
+import { usePageContext } from './Context'
+import { LayoutComponent } from '.'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 export function Container() {
-  const layout = [
-    { i: 'a', x: 0, y: 1, w: 1, h: 1 },
-    { i: 'b', x: 1, y: 0, w: 3, h: 2 },
-    { i: 'c', x: 4, y: 0, w: 1, h: 1 },
-  ]
+  const {
+    handleAddComponentData,
+    layout, componentData, setDroppingItem, droppingItem,
+  } = usePageContext()
+
+  const handleDrop = (layout: Layout[], item: Layout, e: DragEvent) => {
+    if (e.dataTransfer) {
+      const strData = e.dataTransfer.getData('text/plain')
+      if (strData) {
+        const data = JSON.parse(strData) as IMenuData
+        if (droppingItem) {
+          handleAddComponentData(data, item, droppingItem.i)
+          setDroppingItem(undefined)
+        }
+      }
+    }
+  }
 
   return (
     <ResponsiveReactGridLayout
+      onDrop={handleDrop}
       layouts={{
-        lg: [{ i: 'a', x: 0, y: 1, w: 1, h: 1 }],
+        lg: layout,
       }}
+      droppingItem={droppingItem}
+      isDroppable
+      useCSSTransforms
       breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
       cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 0 }}
       style={{ height: '100%' }}
-      key='a'
     >
-      <div style={{ border: '1px solid' }} key='a'>
-        a
-      </div>
-      <GridLayout layout={layout} cols={12} width='100%'>
-        <div style={{ border: '1px solid' }} key='a'>
-          a
-        </div>
-        <div style={{ border: '1px solid' }} key='b'>
-          b
-        </div>
-        <div style={{ border: '1px solid' }} key='c'>
-          c
-        </div>
-      </GridLayout>
+      {
+        componentData.map(v => <div key={v.id}><LayoutComponent {...v} /></div>)
+      }
+
     </ResponsiveReactGridLayout>
   )
 }
