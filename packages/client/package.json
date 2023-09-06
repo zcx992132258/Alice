@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.0",
     "@ant-design/icons": "^5.2.5",
+    "@jiaminghi/data-view-react": "^1.2.5",
     "@lowCode/types": "workspace:*",
     "@types/node": "20.5.4",
     "@types/react": "18.2.21",
