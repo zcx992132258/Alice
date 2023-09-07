@@ -1,7 +1,7 @@
 'use client'
 import { Button } from 'antd'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-import { style, usePageContext } from '.'
+import { style, usePageContext } from '..'
 
 export function CollapsedButton() {
   const { collapsed, setCollapsed } = usePageContext()
@@ -9,7 +9,7 @@ export function CollapsedButton() {
     <Button
       type='text'
       className={style.btn}
-      icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined style={{ color: '#1677ff' }} />}
       onClick={() => setCollapsed(!collapsed)}
     />
   )

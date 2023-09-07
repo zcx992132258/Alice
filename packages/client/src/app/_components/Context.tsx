@@ -7,10 +7,10 @@ import type {
 import {
   createContext,
   useContext,
-  useMemo,
   useState,
 } from 'react'
 import type { Layout } from 'react-grid-layout'
+import { useComponent, useCurComponent } from '../_hooks'
 import { BASE_LINE_CHARTS } from '@/constants'
 
 interface DroppingItem {
@@ -57,34 +57,30 @@ const PageContext = createContext<{
   menuData: IMenu[]
   droppingItem: DroppingItem | undefined
   setDroppingItem: Dispatch<SetStateAction<DroppingItem | undefined>>
+  handleCopyComponent: (data: Component) => void
+  setCurComponent: Dispatch<SetStateAction<Component | undefined>>
+  curComponent: Component | undefined
+  handleSetCurComponent: (data: Component) => void
+  handleDeleteComponent: (id: string) => void
 } | null>(null)
 
 export function PageProvider({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false)
-  const [componentData, setComponentData] = useState<Component[]>([])
-  const [droppingItem, setDroppingItem]
-   = useState<DroppingItem>()
-  const layout = useMemo(() => {
-    return componentData.map((v) => {
-      return v.layout
-    })
-  }, [componentData])
 
-  const handleAddComponentData = (data: IMenuData, layout: Layout, id: string) => {
-    setComponentData([
-      ...componentData,
-      {
-        ...data,
-        id,
-        layout: {
-          ...layout,
-          h: data.height,
-          w: data.width,
-          i: id,
-        },
-      },
-    ])
-  }
+  const {
+    handleAddComponentData,
+    componentData,
+    layout,
+    handleCopyComponent,
+    handleDeleteComponent,
+  } = useComponent()
+
+  const { curComponent, setCurComponent, handleSetCurComponent } = useCurComponent()
+
+  const [
+    droppingItem,
+    setDroppingItem,
+  ] = useState<DroppingItem>()
 
   return (
     <PageContext.Provider value={{
@@ -96,6 +92,11 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
       menuData,
       droppingItem,
       setDroppingItem,
+      handleCopyComponent,
+      curComponent,
+      setCurComponent,
+      handleSetCurComponent,
+      handleDeleteComponent,
     }}
     >
       {children}

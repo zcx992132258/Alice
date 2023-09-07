@@ -1,4 +1,4 @@
-import { style } from '.'
+import { style } from '..'
 
 export function DragWrap({ children }: { children: React.ReactNode }) {
   return (

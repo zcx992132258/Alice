@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import type { DragEventHandler } from 'react'
 import type { EChartsOption } from 'echarts'
-import { style, usePageContext } from '.'
+import { style, usePageContext } from '..'
 
 interface Props {
   name: string

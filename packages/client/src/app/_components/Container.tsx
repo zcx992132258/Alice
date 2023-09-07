@@ -29,6 +29,7 @@ export function Container() {
 
   return (
     <ResponsiveReactGridLayout
+      className='overflow-auto'
       onDrop={handleDrop}
       layouts={{
         lg: layout,
@@ -37,7 +38,7 @@ export function Container() {
       isDroppable
       useCSSTransforms
       breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-      cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 0 }}
+      cols={{ lg: 12, md: 12, sm: 12, xs: 12, xxs: 12 }}
       style={{ height: '100%' }}
     >
       {

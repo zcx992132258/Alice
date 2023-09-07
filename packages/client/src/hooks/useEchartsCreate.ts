@@ -6,10 +6,10 @@ import type { ECharts, EChartsOption } from 'echarts'
 import { useMount, useSize } from 'ahooks'
 
 export function useEchartsCreate(options: EChartsOption) {
-  const wrap = useRef<HTMLElement>()
+  const wrap = useRef<HTMLDivElement | null>(null)
   const chart = useRef<ECharts>()
   const size = useSize(wrap)
-
+  const el = useRef()
   useMount(() => {
     const el = wrap.current
     if (el) {
@@ -23,6 +23,6 @@ export function useEchartsCreate(options: EChartsOption) {
   }, [size])
 
   return {
-    wrap, chart,
+    wrap, chart, el,
   }
 }

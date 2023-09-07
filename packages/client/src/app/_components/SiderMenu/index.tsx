@@ -3,7 +3,7 @@ import type { MenuProps } from 'antd'
 import { Layout, Menu } from 'antd'
 import { useMemo, useState } from 'react'
 import { first } from 'lodash-es'
-import { DragItem, DragWrap, style, usePageContext } from '.'
+import { DragItem, DragWrap, style, usePageContext } from '..'
 
 const { Sider } = Layout
 
