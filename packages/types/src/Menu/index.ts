@@ -10,5 +10,7 @@ export interface IMenuData {
 
 export interface IMenu {
   label: string
+  iconType: string
+  activeIconTYpe: string
   data: IMenuData[]
 }

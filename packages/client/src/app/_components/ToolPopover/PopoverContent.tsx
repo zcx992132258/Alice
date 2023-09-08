@@ -2,7 +2,12 @@ import { usePageContext } from '..'
 import { CopyOutlined, DeleteOutlined, SettingOutlined, Tooltip } from '@/lib/Antd'
 
 export function PopoverContent() {
-  const { handleCopyComponent, curComponent, handleDeleteComponent } = usePageContext()
+  const {
+    handleCopyComponent,
+    curComponent,
+    handleDeleteComponent,
+    setSettingCollapsed,
+  } = usePageContext()
 
   const handleCopyCurComponent = () => {
     if (curComponent) {
@@ -16,6 +21,10 @@ export function PopoverContent() {
     }
   }
 
+  const handleOpenSettingCollapsed = () => {
+    setSettingCollapsed(false)
+  }
+
   return (
     <div>
       <Tooltip title='复制'>
@@ -27,6 +36,7 @@ export function PopoverContent() {
       </Tooltip>
       <Tooltip title='设置'>
         <SettingOutlined
+          onClick={handleOpenSettingCollapsed}
           className='text-[16px] mr-[8px] cursor-pointer '
           style={{ color: '#1677ff' }}
         />

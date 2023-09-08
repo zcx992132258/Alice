@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react'
 import type { Layout } from 'react-grid-layout'
-import { useComponent, useCurComponent } from '../_hooks'
+import { useComponent, useCurComponent, useSettingAside } from '../_hooks'
 import { BASE_LINE_CHARTS } from '@/constants'
 
 interface DroppingItem {
@@ -22,6 +22,8 @@ interface DroppingItem {
 const menuData: IMenu[] = [
   {
     label: '折线图',
+    iconType: 'icon-zhexiantu2',
+    activeIconTYpe: 'icon-zhexiantu1',
     data: [
       {
         name: '基础折线图',
@@ -41,8 +43,8 @@ const menuData: IMenu[] = [
             },
           ],
         },
-        height: 5,
-        width: 5,
+        height: 3,
+        width: 3,
       },
     ],
   },
@@ -62,6 +64,8 @@ const PageContext = createContext<{
   curComponent: Component | undefined
   handleSetCurComponent: (data: Component) => void
   handleDeleteComponent: (id: string) => void
+  settingCollapsed: boolean
+  setSettingCollapsed: Dispatch<SetStateAction<boolean>>
 } | null>(null)
 
 export function PageProvider({ children }: { children: React.ReactNode }) {
@@ -76,6 +80,8 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
   } = useComponent()
 
   const { curComponent, setCurComponent, handleSetCurComponent } = useCurComponent()
+
+  const { settingCollapsed, setSettingCollapsed } = useSettingAside()
 
   const [
     droppingItem,
@@ -97,6 +103,8 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
       setCurComponent,
       handleSetCurComponent,
       handleDeleteComponent,
+      settingCollapsed,
+      setSettingCollapsed,
     }}
     >
       {children}

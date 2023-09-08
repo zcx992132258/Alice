@@ -1,20 +1,40 @@
 'use client'
 import type { MenuProps } from 'antd'
-import { Layout, Menu } from 'antd'
-import { useMemo, useState } from 'react'
+import { Layout, Menu, Tooltip } from 'antd'
+import { memo, useMemo, useState } from 'react'
 import { first } from 'lodash-es'
 import { DragItem, DragWrap, style, usePageContext } from '..'
+import { IconFont } from '@/lib/Icon'
 
 const { Sider } = Layout
 
+const MenuItem
+  = memo(({ label, value, iconType }: { label: string; value?: string; iconType: string }) => {
+    return (
+      <Tooltip title={label}>
+        <IconFont
+          style={{
+            fontSize: '24px',
+            color: value === label ? '#1677ff' : '#e5e7eb',
+          }}
+          type={iconType}
+        />
+      </Tooltip>
+    )
+  })
+
 export function SiderMenu() {
   const { menuData } = usePageContext()
-  const items: MenuProps['items'] = menuData.map(data => ({
-    key: data.label,
-    label: data.label,
-  }))
 
   const [selectedKeys, setSelectedKeys] = useState<string[]>([menuData[0].label])
+
+  const items: MenuProps['items'] = useMemo(() => {
+    const value = first(selectedKeys)
+    return menuData.map(data => ({
+      key: data.label,
+      label: <MenuItem value={value} label={data.label} iconType={data.iconType} />,
+    }))
+  }, [selectedKeys])
 
   const selectedMenuData = useMemo(() => {
     const value = first(selectedKeys)
@@ -29,7 +49,7 @@ export function SiderMenu() {
   return (
     <Sider
       collapsed={collapsed}
-      width={400}
+      width={200}
       collapsedWidth={0}
       style={{
         background: '#ffffff',

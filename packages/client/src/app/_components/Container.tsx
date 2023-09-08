@@ -33,11 +33,15 @@ export function Container() {
       onDrop={handleDrop}
       layouts={{
         lg: layout,
+        md: layout,
+        sm: layout,
+        xs: layout,
+        xxs: layout,
       }}
       droppingItem={droppingItem}
       isDroppable
       useCSSTransforms
-      breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+      breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 320 }}
       cols={{ lg: 12, md: 12, sm: 12, xs: 12, xxs: 12 }}
       style={{ height: '100%' }}
     >

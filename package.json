@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clientDev": " cd packages/client/ && pnpm run dev",
+    "clientdev": " cd packages/client/ && pnpm run dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
