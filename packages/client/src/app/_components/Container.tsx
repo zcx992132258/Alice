@@ -4,13 +4,15 @@ import 'react-resizable/css/styles.css'
 import type { Layout } from 'react-grid-layout'
 import { Responsive, WidthProvider } from 'react-grid-layout'
 import type { IMenuData } from '@lowCode/types'
+import { memo } from 'react'
 import { usePageContext } from './Context'
 import { LayoutComponent } from '.'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
-export function Container() {
+
+export const Container = memo(() => {
   const {
-    handleAddComponentData,
+    handleAddComponentData, handleSetComponent,
     layout, componentData, setDroppingItem, droppingItem,
   } = usePageContext()
 
@@ -25,6 +27,14 @@ export function Container() {
         }
       }
     }
+  }
+
+  const handleResizeStop = (layout: Layout[]) => {
+    handleSetComponent(layout)
+  }
+
+  const handleDragStop = (layout: Layout[]) => {
+    handleSetComponent(layout)
   }
 
   return (
@@ -42,8 +52,10 @@ export function Container() {
       isDroppable
       useCSSTransforms
       breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 320 }}
-      cols={{ lg: 12, md: 12, sm: 12, xs: 12, xxs: 12 }}
+      cols={{ lg: 12, md: 8, sm: 6, xs: 4, xxs: 2 }}
       style={{ height: '100%' }}
+      onResizeStop={handleResizeStop}
+      onDragStop={handleDragStop}
     >
       {
         componentData.map(v => <div key={v.id}><LayoutComponent {...v} /></div>)
@@ -51,6 +63,6 @@ export function Container() {
 
     </ResponsiveReactGridLayout>
   )
-}
+})
 
 export default Container

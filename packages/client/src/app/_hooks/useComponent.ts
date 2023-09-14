@@ -1,22 +1,23 @@
 import type { Component, IMenuData } from '@lowCode/types'
-import { useCallback, useMemo, useState } from 'react'
+import { useCreation, useMemoizedFn } from 'ahooks'
+import { useState } from 'react'
 import type { Layout } from 'react-grid-layout'
 import { v4 as uuid } from 'uuid'
 
 export function useComponent() {
   const [componentData, setComponentData] = useState<Component[]>([])
 
-  const uniqueNamesSet = useMemo(() => {
+  const uniqueNamesSet = useCreation(() => {
     return new Set(componentData.map(v => v.name))
   }, [componentData])
 
-  const layout = useMemo(() => {
+  const layout = useCreation(() => {
     return componentData.map((v) => {
       return v.layout
     })
   }, [componentData])
 
-  const isNameUnique = useCallback((name: string) => !uniqueNamesSet.has(name), [uniqueNamesSet])
+  const isNameUnique = useMemoizedFn((name: string) => !uniqueNamesSet.has(name))
 
   const renameDuplicate = (name: string) => {
     if (!isNameUnique(name)) {
@@ -68,6 +69,21 @@ export function useComponent() {
     }, id)
   }
 
+  const handleSetComponent = (data: Layout[]) => {
+    const iArr = data.map(v => v.i)
+    setComponentData((componentData) => {
+      return componentData.map((v) => {
+        if (iArr.includes(v.id)) {
+          return {
+            ...v,
+            layout: data.find(val => val.i === v.id)!,
+          }
+        }
+        return v
+      })
+    })
+  }
+
   return {
     componentData,
     handleAddComponentData,
@@ -75,5 +91,6 @@ export function useComponent() {
     handleCopyComponent,
     layout,
     handleDeleteComponent,
+    handleSetComponent,
   }
 }

@@ -1,8 +1,9 @@
 'use client'
 import type { MenuProps } from 'antd'
 import { Layout, Menu, Tooltip } from 'antd'
-import { memo, useMemo, useState } from 'react'
+import { memo, useState } from 'react'
 import { first } from 'lodash-es'
+import { useCreation } from 'ahooks'
 import { DragItem, DragWrap, style, usePageContext } from '..'
 import { IconFont } from '@/lib/Icon'
 
@@ -28,7 +29,7 @@ export function SiderMenu() {
 
   const [selectedKeys, setSelectedKeys] = useState<string[]>([menuData[0].label])
 
-  const items: MenuProps['items'] = useMemo(() => {
+  const items: MenuProps['items'] = useCreation(() => {
     const value = first(selectedKeys)
     return menuData.map(data => ({
       key: data.label,
@@ -36,7 +37,7 @@ export function SiderMenu() {
     }))
   }, [selectedKeys])
 
-  const selectedMenuData = useMemo(() => {
+  const selectedMenuData = useCreation(() => {
     const value = first(selectedKeys)
     if (value) {
       return menuData.find(v => v.label === value)?.data || []

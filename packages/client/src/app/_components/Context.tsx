@@ -66,6 +66,7 @@ const PageContext = createContext<{
   handleDeleteComponent: (id: string) => void
   settingCollapsed: boolean
   setSettingCollapsed: Dispatch<SetStateAction<boolean>>
+  handleSetComponent: (data: Layout[]) => void
 } | null>(null)
 
 export function PageProvider({ children }: { children: React.ReactNode }) {
@@ -76,7 +77,7 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
     componentData,
     layout,
     handleCopyComponent,
-    handleDeleteComponent,
+    handleDeleteComponent, handleSetComponent,
   } = useComponent()
 
   const { curComponent, setCurComponent, handleSetCurComponent } = useCurComponent()
@@ -105,6 +106,7 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
       handleDeleteComponent,
       settingCollapsed,
       setSettingCollapsed,
+      handleSetComponent,
     }}
     >
       {children}

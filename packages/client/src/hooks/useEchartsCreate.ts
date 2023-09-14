@@ -9,7 +9,7 @@ export function useEchartsCreate(options: EChartsOption) {
   const wrap = useRef<HTMLDivElement | null>(null)
   const chart = useRef<ECharts>()
   const size = useSize(wrap)
-  const el = useRef()
+
   useMount(() => {
     const el = wrap.current
     if (el) {
@@ -23,6 +23,6 @@ export function useEchartsCreate(options: EChartsOption) {
   }, [size])
 
   return {
-    wrap, chart, el,
+    wrap, chart,
   }
 }
