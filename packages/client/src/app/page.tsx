@@ -17,8 +17,8 @@ function Page() {
             <Suspense fallback={<Loading />}>
               <SiderMenu />
             </Suspense>
-            <Content className='bg-#f5f5f5 relative'>
-              <main className='h-[100%] w-[100%] bg-[#f5f5f5] overflow-hidden'>
+            <Content className="bg-#f5f5f5 relative">
+              <main className="h-[100%] w-[100%] bg-[#f5f5f5] overflow-hidden">
                 <Suspense fallback={<Loading />}>
                   <Container />
                 </Suspense>

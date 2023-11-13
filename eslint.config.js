@@ -7,7 +7,17 @@
 //   ignorePatterns: ['**/*.scss'],
 // }
 import antfu from '@antfu/eslint-config'
-export default antfu(
+import { FlatCompat } from '@eslint/eslintrc'
+
+const compat = new FlatCompat()
+export default antfu({
+  jsx: true,
+  ...compat.config({
+    extends: [
+      'standard-jsx',
+    ],
+  }),
+},
   // {
   //   ignores: [],
   // },
