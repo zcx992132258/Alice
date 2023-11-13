@@ -4,10 +4,9 @@ import { useState } from 'react'
 export function useCurComponent() {
   const [curComponent, setCurComponent] = useState<Component>()
 
-  const handleSetCurComponent = (component: Component) => {
-    if (curComponent?.id !== component.id) {
+  const handleSetCurComponent = (component: Component, force?: boolean) => {
+    if (curComponent?.id !== component.id || force)
       setCurComponent(component)
-    }
   }
 
   return { curComponent, handleSetCurComponent, setCurComponent }

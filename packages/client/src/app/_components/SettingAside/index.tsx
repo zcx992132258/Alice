@@ -4,7 +4,8 @@ import { style } from '../'
 import { CloseCircleOutlined, Segmented, Sider } from '@/lib/Antd'
 
 const segmentedOptions = [
-  '数据', '样式',
+  '数据',
+  '样式',
 ]
 
 export function SettingAside() {
@@ -25,17 +26,22 @@ export function SettingAside() {
         borderLeft: '1px solid #e7ecef',
       }}
     >
-      <div className='flex justify-between items-center  px-[20px] h-[40px] text-[12px]
-       bg-[#ffffff]'
+      <div className="flex justify-between items-center  px-[20px] h-[40px] text-[12px]
+       bg-[#ffffff]"
       >
-        <span> {curComponent?.name}</span>
+        <span>
+          {' '}
+          {curComponent?.name}
+        </span>
         <CloseCircleOutlined
-          className='text-[18px]'
+          className="text-[18px]"
           onClick={() => setSettingCollapsed(true)}
         />
       </div>
       <Segmented
-        block options={segmentedOptions} style={{
+        block
+        options={segmentedOptions}
+        style={{
           borderTop: '1px solid #e7ecef',
           borderBottom: '1px solid #e7ecef',
         }}

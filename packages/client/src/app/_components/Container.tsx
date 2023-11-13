@@ -5,6 +5,7 @@ import type { Layout } from 'react-grid-layout'
 import { Responsive, WidthProvider } from 'react-grid-layout'
 import type { IMenuData } from '@lowCode/types'
 import { memo } from 'react'
+import { first } from 'lodash-es'
 import { usePageContext } from './Context'
 import { LayoutComponent } from '.'
 
@@ -12,8 +13,13 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
 export const Container = memo(() => {
   const {
-    handleAddComponentData, handleSetComponent,
-    layout, componentData, setDroppingItem, droppingItem,
+    handleAddComponentData,
+    handleSetComponent,
+    layout,
+    componentData,
+    setDroppingItem,
+    droppingItem,
+    handleSetCurComponent,
   } = usePageContext()
 
   const handleDrop = (layout: Layout[], item: Layout, e: DragEvent) => {
@@ -37,9 +43,18 @@ export const Container = memo(() => {
     handleSetComponent(layout)
   }
 
+  const handleDragStart = (layout: Layout[]) => {
+    const data = first(layout)
+    if (data) {
+      const component = componentData.find(v => v.id === data.i)
+      if (component)
+        handleSetCurComponent(component)
+    }
+  }
+
   return (
     <ResponsiveReactGridLayout
-      className='overflow-auto'
+      className="overflow-auto"
       onDrop={handleDrop}
       layouts={{
         lg: layout,
@@ -48,6 +63,7 @@ export const Container = memo(() => {
         xs: layout,
         xxs: layout,
       }}
+      onDragStart={handleDragStart}
       droppingItem={droppingItem}
       isDroppable
       useCSSTransforms

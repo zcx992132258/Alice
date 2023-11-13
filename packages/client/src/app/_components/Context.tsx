@@ -77,7 +77,8 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
     componentData,
     layout,
     handleCopyComponent,
-    handleDeleteComponent, handleSetComponent,
+    handleDeleteComponent,
+    handleSetComponent,
   } = useComponent()
 
   const { curComponent, setCurComponent, handleSetCurComponent } = useCurComponent()
@@ -116,8 +117,8 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
 
 export function usePageContext() {
   const context = useContext(PageContext)
-  if (!context) {
+  if (!context)
     throw new Error('usePageContext must be used within a PageProvider')
-  }
+
   return context
 }

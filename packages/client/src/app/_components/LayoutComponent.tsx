@@ -16,9 +16,9 @@ export const LayoutComponent = memo((props: Component) => {
   const isCurComponent = useCreation(() => props.id === curComponent?.id, [curComponent, props.id])
 
   const CurComponent = useCreation(() => {
-    if (props.type in componentMap) {
+    if (props.type in componentMap)
       return componentMap[props.type]
-    }
+
     return null
   }, [props.type])
 
@@ -29,11 +29,11 @@ export const LayoutComponent = memo((props: Component) => {
   return (
     <ToolPopover>
       <div
-        className='h-[100%] w-[100%] bg-[#fff]'
+        className="h-[100%] w-[100%] bg-[#fff]"
         style={style}
         onClick={() => handleSetCurComponent(props)}
       >
-        <Suspense fallback={<Loading className='flex items-center justify-center' />}>
+        <Suspense fallback={<Loading className="flex items-center justify-center" />}>
           {
             CurComponent ? <CurComponent {...props} /> : null
           }

@@ -2,8 +2,9 @@
 
 import React from 'react'
 
-// import { StyleProvider, createCache, extractStyle } from '@ant-design/cssinjs'
-import { StyleProvider, createCache, extractStyle } from '@ant-design/cssinjs/lib'
+import { StyleProvider, createCache, extractStyle } from '@ant-design/cssinjs'
+
+// import { StyleProvider, createCache, extractStyle } from '@ant-design/cssinjs/lib'
 import type Entity from '@ant-design/cssinjs/es/Cache'
 import { useServerInsertedHTML } from 'next/navigation'
 

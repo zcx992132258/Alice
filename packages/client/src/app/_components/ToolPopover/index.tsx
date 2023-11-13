@@ -1,51 +1,56 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
+import { usePageContext } from '../Context'
 import { PopoverContent } from './PopoverContent'
 import { Popover } from '@/lib/Antd'
 import { useMemoizedFn } from '@/lib/ahook'
+import { SingleIntersectionObserver } from '@/util/SingleIntersectionObserver'
 
-export function ToolPopover({
+export const ToolPopover = memo(({
   children,
 }: {
   children: React.ReactNode
-}) {
+}) => {
   const [visible, setVisible] = useState(false)
   const el = useRef<HTMLDivElement | null>(null)
+
   const handleVisibleChange = useMemoizedFn((visible: boolean) => {
     setVisible(visible)
   })
 
   useEffect(() => {
-    let observer: IntersectionObserver | null = new IntersectionObserver((entries) => {
-      const enter = entries.find(v => v.target === el.current)
-      if (enter && (!enter.isIntersecting || enter.intersectionRatio <= 0.3)) {
-        handleVisibleChange(false)
-      }
-    }, {
+    SingleIntersectionObserver.create({
       threshold: 0.3,
     })
     if (el.current) {
-      observer.observe(el.current)
+      SingleIntersectionObserver.collectDom(el.current, (enter) => {
+        if (enter.isIntersecting || enter.intersectionRatio <= 0.3)
+          handleVisibleChange(false)
+      })
     }
     return () => {
-      observer?.disconnect()
-      observer = null
+      if (el.current)
+        SingleIntersectionObserver.delObserve(el.current)
     }
   }, [])
 
   return (
     <Popover
-      placement='top' open={visible}
+      placement="top"
+      open={visible}
       onOpenChange={handleVisibleChange}
       destroyTooltipOnHide
-      trigger='click'
+      trigger="click"
       content={<PopoverContent />}
     >
-      <div ref={el} className='h-[100%] w-[100%] relative'>
+      <div
+        ref={el}
+        className="h-[100%] w-[100%] relative"
+      >
         {children}
       </div>
     </Popover>
   )
-}
+})
 
 export default ToolPopover

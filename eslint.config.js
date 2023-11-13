@@ -16,6 +16,10 @@ export default antfu({
     extends: [
       'standard-jsx',
     ],
+    rules: {
+      'curly': 'off',
+      'max-len': ['error', { code: 100 }],
+    },
   }),
 },
   // {
