@@ -1,5 +1,6 @@
 {
   "name": "lowCode",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "author": "",
@@ -18,8 +19,8 @@
     "react-grid-layout": "^1.3.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.39.7",
-    "eslint": "^8.47.0",
+    "@antfu/eslint-config": "^1.1.0",
+    "eslint": "^8.53.0",
     "eslint-config-standard-jsx": "^11.0.0",
     "lint-staged": "^14.0.1",
     "simple-git-hooks": "^2.9.0",

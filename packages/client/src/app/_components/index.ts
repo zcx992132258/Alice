@@ -15,7 +15,9 @@ export const DragWrap = lazy(() => import('./DragWrap'))
 export const DragItem = lazy(() => import('./DragWrap/DragItem'))
 
 export const Container = lazy(() => import('./Container'))
+
 export const SettingAside = lazy(() => import('./SettingAside'))
+
 export { ToolPopover } from './ToolPopover'
 
 export {
