@@ -11,6 +11,13 @@ export function useComponent() {
     return new Set(componentData.map(v => v.name))
   }, [componentData])
 
+  const componentDataMap = useCreation(() => {
+    const map = new Map<string, Component>()
+    for (const i of componentData)
+      map.set(i.id, i)
+    return map
+  }, [componentData])
+
   const layout = useCreation(() => {
     return componentData.map((v) => {
       return v.layout
@@ -92,5 +99,6 @@ export function useComponent() {
     layout,
     handleDeleteComponent,
     handleSetComponent,
+    componentDataMap,
   }
 }

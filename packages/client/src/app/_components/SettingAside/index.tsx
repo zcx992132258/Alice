@@ -1,6 +1,7 @@
 'use client'
 import { usePageContext } from '../Context'
 import { style } from '../'
+import { StyleSetting } from './StyleSetting'
 import { CloseCircleOutlined, Segmented, Sider } from '@/lib/Antd'
 
 const segmentedOptions = [
@@ -30,7 +31,6 @@ export function SettingAside() {
        bg-[#ffffff]"
       >
         <span>
-          {' '}
           {curComponent?.name}
         </span>
         <CloseCircleOutlined
@@ -46,7 +46,9 @@ export function SettingAside() {
           borderBottom: '1px solid #e7ecef',
         }}
       />
-      <div className={style.wrap} />
+      <div className={style.wrap}>
+        <StyleSetting></StyleSetting>
+      </div>
     </Sider>
   )
 }

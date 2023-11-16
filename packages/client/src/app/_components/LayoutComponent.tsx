@@ -11,9 +11,11 @@ export const LayoutComponent = memo((props: Component) => {
     [BASE_LINE_CHARTS]: BaseLineCharts,
   }
 
-  const { handleSetCurComponent, curComponent } = usePageContext()
+  const { curComponent } = usePageContext()
 
-  const isCurComponent = useCreation(() => props.id === curComponent?.id, [curComponent, props.id])
+  const isCurComponent = useCreation(() => {
+    return props.id === curComponent?.id
+  }, [curComponent, props.id])
 
   const CurComponent = useCreation(() => {
     if (props.type in componentMap)
@@ -22,16 +24,17 @@ export const LayoutComponent = memo((props: Component) => {
     return null
   }, [props.type])
 
-  const style = useCreation<CSSProperties>(() => ({
-    border: isCurComponent ? '1px solid #1677ff' : '1px solid transparent',
-  }), [isCurComponent])
+  const style = useCreation<CSSProperties>(() => {
+    return ({
+      border: isCurComponent ? '1px solid #1677ff' : '1px solid transparent',
+    })
+  }, [isCurComponent])
 
   return (
-    <ToolPopover>
+    <ToolPopover id={props.id}>
       <div
         className="h-[100%] w-[100%] bg-[#fff]"
         style={style}
-        onClick={() => handleSetCurComponent(props)}
       >
         <Suspense fallback={<Loading className="flex items-center justify-center" />}>
           {

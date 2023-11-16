@@ -7,4 +7,17 @@ export interface Component {
   name: string
   id: string
   layout: Layout
+  setting: {
+    styleSetting: {
+      border: {
+        componentName: null | string
+        color: null | string
+        backgroundColor: string
+        reverse: true | boolean
+        title: string
+        titleWidth: number
+        settingComponentName: string
+      }
+    }
+  }
 }

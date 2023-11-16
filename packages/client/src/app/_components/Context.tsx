@@ -45,6 +45,19 @@ const menuData: IMenu[] = [
         },
         height: 3,
         width: 3,
+        setting: {
+          styleSetting: {
+            border: {
+              componentName: null,
+              color: null,
+              backgroundColor: 'transparent',
+              reverse: true,
+              title: '',
+              titleWidth: 250,
+              settingComponentName: 'BorderSetting',
+            },
+          },
+        },
       },
     ],
   },
@@ -62,11 +75,12 @@ const PageContext = createContext<{
   handleCopyComponent: (data: Component) => void
   setCurComponent: Dispatch<SetStateAction<Component | undefined>>
   curComponent: Component | undefined
-  handleSetCurComponent: (data: Component) => void
+  handleSetCurComponent: (data: Component, force?: boolean) => void
   handleDeleteComponent: (id: string) => void
   settingCollapsed: boolean
   setSettingCollapsed: Dispatch<SetStateAction<boolean>>
   handleSetComponent: (data: Layout[]) => void
+  componentDataMap: Map<string, Component>
 } | null>(null)
 
 export function PageProvider({ children }: { children: React.ReactNode }) {
@@ -79,6 +93,7 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
     handleCopyComponent,
     handleDeleteComponent,
     handleSetComponent,
+    componentDataMap,
   } = useComponent()
 
   const { curComponent, setCurComponent, handleSetCurComponent } = useCurComponent()
@@ -108,6 +123,7 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
       settingCollapsed,
       setSettingCollapsed,
       handleSetComponent,
+      componentDataMap,
     }}
     >
       {children}

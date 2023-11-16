@@ -20,6 +20,7 @@ export const Container = memo(() => {
     setDroppingItem,
     droppingItem,
     handleSetCurComponent,
+    componentDataMap,
   } = usePageContext()
 
   const handleDrop = (layout: Layout[], item: Layout, e: DragEvent) => {
@@ -43,12 +44,12 @@ export const Container = memo(() => {
     handleSetComponent(layout)
   }
 
-  const handleDragStart = (layout: Layout[]) => {
-    const data = first(layout)
+  const handleDragStart = (layouts: Layout[], oldItem: Layout, newItem: Layout) => {
+    const data = componentData.find(v => v.id === newItem.i)
     if (data) {
-      const component = componentData.find(v => v.id === data.i)
+      const component = componentDataMap.get(data.id)
       if (component)
-        handleSetCurComponent(component)
+        handleSetCurComponent(component, true)
     }
   }
 

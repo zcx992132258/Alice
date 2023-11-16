@@ -10,15 +10,13 @@ export function PopoverContent() {
   } = usePageContext()
 
   const handleCopyCurComponent = () => {
-    if (curComponent) {
+    if (curComponent)
       handleCopyComponent(curComponent)
-    }
   }
 
   const handleDeleteCurComponent = () => {
-    if (curComponent) {
+    if (curComponent)
       handleDeleteComponent(curComponent.id)
-    }
   }
 
   const handleOpenSettingCollapsed = () => {
@@ -27,24 +25,24 @@ export function PopoverContent() {
 
   return (
     <div>
-      <Tooltip title='复制'>
+      <Tooltip title="复制">
         <CopyOutlined
-          className='text-[16px] mr-[8px] cursor-pointer '
+          className="text-[16px] mr-[8px] cursor-pointer "
           style={{ color: '#1677ff' }}
           onClick={handleCopyCurComponent}
         />
       </Tooltip>
-      <Tooltip title='设置'>
+      <Tooltip title="设置">
         <SettingOutlined
           onClick={handleOpenSettingCollapsed}
-          className='text-[16px] mr-[8px] cursor-pointer '
+          className="text-[16px] mr-[8px] cursor-pointer "
           style={{ color: '#1677ff' }}
         />
       </Tooltip>
-      <Tooltip title='删除'>
+      <Tooltip title="删除">
         <DeleteOutlined
           onClick={handleDeleteCurComponent}
-          className='text-[16px] cursor-pointer '
+          className="text-[16px] cursor-pointer "
           style={{ color: '#ff7875' }}
         />
       </Tooltip>

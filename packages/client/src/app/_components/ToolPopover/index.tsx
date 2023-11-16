@@ -3,17 +3,15 @@ import { memo, useEffect, useRef, useState } from 'react'
 import { usePageContext } from '../Context'
 import { PopoverContent } from './PopoverContent'
 import { Popover } from '@/lib/Antd'
-import { useMemoizedFn } from '@/lib/ahook'
+import { useCreation, useMemoizedFn } from '@/lib/ahook'
 import { SingleIntersectionObserver } from '@/util/SingleIntersectionObserver'
 
-export const ToolPopover = memo(({
-  children,
-}: {
+export const ToolPopover = memo((props: {
+  id: string
   children: React.ReactNode
 }) => {
   const [visible, setVisible] = useState(false)
   const el = useRef<HTMLDivElement | null>(null)
-
   const handleVisibleChange = useMemoizedFn((visible: boolean) => {
     setVisible(visible)
   })
@@ -47,7 +45,7 @@ export const ToolPopover = memo(({
         ref={el}
         className="h-[100%] w-[100%] relative"
       >
-        {children}
+        {props.children}
       </div>
     </Popover>
   )
