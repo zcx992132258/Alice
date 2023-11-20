@@ -14,13 +14,15 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive)
 export const Container = memo(() => {
   const {
     handleAddComponentData,
-    handleSetComponent,
+    handleSetComponentLayout,
     layout,
     componentData,
     setDroppingItem,
     droppingItem,
     handleSetCurComponent,
     componentDataMap,
+    curComponent,
+    setCurComponent,
   } = usePageContext()
 
   const handleDrop = (layout: Layout[], item: Layout, e: DragEvent) => {
@@ -36,12 +38,26 @@ export const Container = memo(() => {
     }
   }
 
-  const handleResizeStop = (layout: Layout[]) => {
-    handleSetComponent(layout)
+  const setCurComponentLayout = (layouts: Layout[]) => {
+    if (curComponent) {
+      const layout = layouts.find(v => v.i === curComponent.layout.i)
+      if (layout) {
+        setCurComponent({
+          ...curComponent,
+          layout,
+        })
+      }
+    }
   }
 
-  const handleDragStop = (layout: Layout[]) => {
-    handleSetComponent(layout)
+  const handleResizeStop = (layouts: Layout[]) => {
+    handleSetComponentLayout(layouts)
+    setCurComponentLayout(layouts)
+  }
+
+  const handleDragStop = (layouts: Layout[]) => {
+    handleSetComponentLayout(layouts)
+    setCurComponentLayout(layouts)
   }
 
   const handleDragStart = (layouts: Layout[], oldItem: Layout, newItem: Layout) => {

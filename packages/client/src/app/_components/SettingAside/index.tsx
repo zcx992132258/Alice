@@ -20,7 +20,7 @@ export function SettingAside() {
     <Sider
       className={style.settingAside}
       collapsed={settingCollapsed}
-      width={300}
+      width={400}
       collapsedWidth={0}
       style={{
         background: '#f7f8fa',

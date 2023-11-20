@@ -11,7 +11,7 @@ export interface Component {
     styleSetting: {
       border: {
         componentName: null | string
-        color: null | string
+        color: string[]
         backgroundColor: string
         reverse: true | boolean
         title: string

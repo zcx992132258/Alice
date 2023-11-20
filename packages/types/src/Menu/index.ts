@@ -10,7 +10,7 @@ export interface IMenuData {
     styleSetting: {
       border: {
         componentName: null | string
-        color: null | string
+        color: string[]
         backgroundColor: string
         reverse: true | boolean
         title: string

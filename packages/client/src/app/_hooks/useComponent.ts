@@ -63,6 +63,7 @@ export function useComponent() {
   const handleCopyComponent = (data: Component) => {
     const id = uuid()
     handleAddComponentData({
+      ...data,
       name: data.name,
       chartOptions: data.chartOptions,
       type: data.type,
@@ -76,7 +77,7 @@ export function useComponent() {
     }, id)
   }
 
-  const handleSetComponent = (data: Layout[]) => {
+  const handleSetComponentLayout = (data: Layout[]) => {
     const iArr = data.map(v => v.i)
     setComponentData((componentData) => {
       return componentData.map((v) => {
@@ -84,6 +85,19 @@ export function useComponent() {
           return {
             ...v,
             layout: data.find(val => val.i === v.id)!,
+          }
+        }
+        return v
+      })
+    })
+  }
+  const handleSetComponent = (data: Component[]) => {
+    setComponentData((componentData) => {
+      return componentData.map((v) => {
+        const value = data.find(val => val.id === v.id)
+        if (value) {
+          return {
+            ...value,
           }
         }
         return v
@@ -98,7 +112,8 @@ export function useComponent() {
     handleCopyComponent,
     layout,
     handleDeleteComponent,
-    handleSetComponent,
+    handleSetComponentLayout,
     componentDataMap,
+    handleSetComponent,
   }
 }

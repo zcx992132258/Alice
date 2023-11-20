@@ -5,6 +5,7 @@ import { ToolPopover, usePageContext } from '.'
 import { BaseLineCharts, Loading } from '@/components'
 import { BASE_LINE_CHARTS } from '@/constants'
 import { useCreation } from '@/lib/ahook'
+import BorderWrap from '@/components/BorderWrap'
 
 export const LayoutComponent = memo((props: Component) => {
   const componentMap: Record<string, LazyExoticComponent<(props: Component) => JSX.Element>> = {
@@ -36,11 +37,14 @@ export const LayoutComponent = memo((props: Component) => {
         className="h-[100%] w-[100%] bg-[#fff]"
         style={style}
       >
-        <Suspense fallback={<Loading className="flex items-center justify-center" />}>
-          {
+        <BorderWrap {...props.setting.styleSetting.border}>
+          <Suspense fallback={<Loading className="flex items-center justify-center" />}>
+            {
             CurComponent ? <CurComponent {...props} /> : null
           }
-        </Suspense>
+          </Suspense>
+        </BorderWrap>
+
       </div>
     </ToolPopover>
   )

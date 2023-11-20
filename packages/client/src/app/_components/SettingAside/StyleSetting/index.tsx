@@ -1,6 +1,6 @@
-import { lazy } from 'react'
 import { usePageContext } from '../..'
 import BorderSetting from './BorderSetting'
+import StyleSettingCss from './style/index.module.scss'
 import { Collapse } from '@/lib/Antd'
 import { useCreation } from '@/lib/ahook'
 
@@ -27,7 +27,7 @@ export function StyleSetting() {
 
   return (
     <div className="h-[100%]">
-      <Collapse items={settingComponent}></Collapse>
+      <Collapse className={StyleSettingCss.StyleSetting} items={settingComponent}></Collapse>
     </div>
   )
 }

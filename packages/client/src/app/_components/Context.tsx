@@ -49,7 +49,7 @@ const menuData: IMenu[] = [
           styleSetting: {
             border: {
               componentName: null,
-              color: null,
+              color: ['#1677FF', '#5b96d9ab'],
               backgroundColor: 'transparent',
               reverse: true,
               title: '',
@@ -79,7 +79,8 @@ const PageContext = createContext<{
   handleDeleteComponent: (id: string) => void
   settingCollapsed: boolean
   setSettingCollapsed: Dispatch<SetStateAction<boolean>>
-  handleSetComponent: (data: Layout[]) => void
+  handleSetComponentLayout: (data: Layout[]) => void
+  handleSetComponent: (data: Component[]) => void
   componentDataMap: Map<string, Component>
 } | null>(null)
 
@@ -92,8 +93,9 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
     layout,
     handleCopyComponent,
     handleDeleteComponent,
-    handleSetComponent,
+    handleSetComponentLayout,
     componentDataMap,
+    handleSetComponent,
   } = useComponent()
 
   const { curComponent, setCurComponent, handleSetCurComponent } = useCurComponent()
@@ -122,8 +124,9 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
       handleDeleteComponent,
       settingCollapsed,
       setSettingCollapsed,
-      handleSetComponent,
+      handleSetComponentLayout,
       componentDataMap,
+      handleSetComponent,
     }}
     >
       {children}

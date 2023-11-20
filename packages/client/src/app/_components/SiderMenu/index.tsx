@@ -39,9 +39,9 @@ export function SiderMenu() {
 
   const selectedMenuData = useCreation(() => {
     const value = first(selectedKeys)
-    if (value) {
+    if (value)
       return menuData.find(v => v.label === value)?.data || []
-    }
+
     return []
   }, [selectedKeys])
 
@@ -62,8 +62,8 @@ export function SiderMenu() {
           onClick={data => setSelectedKeys([data.key])}
           selectedKeys={selectedKeys}
           className={style.menuItem}
-          theme='light'
-          mode='inline'
+          theme="light"
+          mode="inline"
           items={items}
         />
       </div>

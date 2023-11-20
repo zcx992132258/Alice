@@ -1,0 +1,12 @@
+.StyleSetting{
+  height: 100%;
+  overflow: auto;
+  .border-setting{
+    :global(.border) {
+      border-width:0px;
+    }
+    .active{
+      background-color: #e6f4ff;
+    }
+  }
+}
