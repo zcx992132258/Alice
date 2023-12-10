@@ -1,4 +1,5 @@
 import { usePageContext } from '../..'
+import { BaseStyleSetting } from './BaseStyleSetting'
 import BorderSetting from './BorderSetting'
 import StyleSettingCss from './style/index.module.scss'
 import { Collapse } from '@/lib/Antd'
@@ -10,6 +11,12 @@ const CollapseItems = [
     key: 'border',
     children: <BorderSetting></BorderSetting>,
     settingcomponentname: 'BorderSetting',
+  },
+  {
+    label: '基础样式',
+    key: 'baseStyle',
+    children: <BaseStyleSetting></BaseStyleSetting>,
+    settingcomponentname: 'BaseStyleSetting',
   },
 ]
 

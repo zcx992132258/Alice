@@ -1,6 +1,7 @@
 'use client'
 import type { Component } from '@lowCode/types'
 import { memo, useRef } from 'react'
+import styleCss from './index.module.scss'
 import * as BorderComponents from '@/lib/DataV'
 import { useCreation, useSize } from '@/lib/ahook'
 
@@ -32,10 +33,10 @@ export const BorderWrap = memo((props: props) => {
     }
   }, [size])
   return (
-    <div className="h-[100%] w-[100%]" ref={ref}>
+    <div className={`h-[100%] w-[100%] ${styleCss.borderWrap}`} ref={ref}>
       {BorderComponent
         ? (
-          <BorderComponent style={style} color={props.color}>
+          <BorderComponent className={styleCss.border} style={style} color={props.color}>
             { props.children}
           </BorderComponent>
           )

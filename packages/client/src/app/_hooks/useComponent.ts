@@ -3,6 +3,7 @@ import { useCreation, useMemoizedFn } from 'ahooks'
 import { useState } from 'react'
 import type { Layout } from 'react-grid-layout'
 import { v4 as uuid } from 'uuid'
+import { cloneDeep } from 'lodash-es'
 
 export function useComponent() {
   const [componentData, setComponentData] = useState<Component[]>([])
@@ -62,19 +63,19 @@ export function useComponent() {
 
   const handleCopyComponent = (data: Component) => {
     const id = uuid()
-    handleAddComponentData({
+    handleAddComponentData(cloneDeep({
       ...data,
       name: data.name,
       chartOptions: data.chartOptions,
       type: data.type,
       height: data.layout.h,
       width: data.layout.w,
-    }, {
+    }), cloneDeep({
       ...data.layout,
       x: 0,
       y: 0,
       i: id,
-    }, id)
+    }), id)
   }
 
   const handleSetComponentLayout = (data: Layout[]) => {

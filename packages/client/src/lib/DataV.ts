@@ -1,17 +1,16 @@
-'use client'
-import BorderBox1 from '@jiaminghi/data-view-react/es/borderBox1/index'
-import BorderBox2 from '@jiaminghi/data-view-react/es/BorderBox2/index'
-import BorderBox3 from '@jiaminghi/data-view-react/es/BorderBox3/index'
-import BorderBox4 from '@jiaminghi/data-view-react/es/BorderBox4/index'
-import BorderBox5 from '@jiaminghi/data-view-react/es/BorderBox5/index'
-import BorderBox6 from '@jiaminghi/data-view-react/es/BorderBox6/index'
-import BorderBox7 from '@jiaminghi/data-view-react/es/BorderBox7/index'
-import BorderBox8 from '@jiaminghi/data-view-react/es/BorderBox8/index'
-import BorderBox9 from '@jiaminghi/data-view-react/es/BorderBox9/index'
-import BorderBox10 from '@jiaminghi/data-view-react/es/BorderBox10/index'
-import BorderBox11 from '@jiaminghi/data-view-react/es/BorderBox11/index'
-import BorderBox12 from '@jiaminghi/data-view-react/es/BorderBox12/index'
-import BorderBox13 from '@jiaminghi/data-view-react/es/BorderBox13/index'
+import { lazy } from 'react'
+
+const BorderBox1 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox1/index'))
+const BorderBox2 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox2/index'))
+const BorderBox3 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox3/index'))
+const BorderBox4 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox4/index'))
+const BorderBox5 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox5/index'))
+const BorderBox6 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox6/index'))
+const BorderBox7 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox7/index'))
+const BorderBox8 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox8/index'))
+const BorderBox9 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox9/index'))
+const BorderBox10 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox10/index'))
+const BorderBox13 = lazy(() => import('@jiaminghi/data-view-react/es/borderBox13/index'))
 
 export {
   BorderBox1,
@@ -24,7 +23,6 @@ export {
   BorderBox8,
   BorderBox9,
   BorderBox10,
-  BorderBox11,
-  BorderBox12,
+  // BorderBox12,
   BorderBox13,
 }

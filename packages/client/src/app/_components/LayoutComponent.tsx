@@ -21,30 +21,47 @@ export const LayoutComponent = memo((props: Component) => {
   const CurComponent = useCreation(() => {
     if (props.type in componentMap)
       return componentMap[props.type]
-
     return null
   }, [props.type])
 
   const style = useCreation<CSSProperties>(() => {
+    const backgroundImage: CSSProperties = {
+      backgroundImage: `url(${props.setting.styleSetting.baseStyle.useBackgroundImage ? props.setting.styleSetting.baseStyle.backgroundImage || '' : ''})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center center',
+      backgroundSize: 'contain',
+    }
+    const useBackgroundImage = props.setting.styleSetting.baseStyle.useBackgroundImage
     return ({
-      border: isCurComponent ? '1px solid #1677ff' : '1px solid transparent',
+      padding: `${props.setting.styleSetting.baseStyle.padding || 0}%`,
+      borderRadius: `${props.setting.styleSetting.baseStyle.borderRadius || 0}px`,
+      backgroundColor: props.setting.styleSetting.baseStyle.useBackgroundColor ? props.setting.styleSetting.baseStyle.backgroundColor || '#fdfdfd00' : '#fdfdfd00',
+      ...useBackgroundImage ? { ...backgroundImage } : {},
     })
-  }, [isCurComponent])
+  }, [isCurComponent, props])
+
+  const activeBorder = useCreation<CSSProperties>(() => {
+    return {
+      border: isCurComponent ? '1px solid #1677ff' : '1px solid transparent',
+    }
+  }, [isCurComponent, props])
 
   return (
     <ToolPopover id={props.id}>
-      <div
-        className="h-[100%] w-[100%] bg-[#fff]"
-        style={style}
-      >
-        <BorderWrap {...props.setting.styleSetting.border}>
-          <Suspense fallback={<Loading className="flex items-center justify-center" />}>
-            {
+      <div className="h-[100%] w-[100%]" style={activeBorder}>
+        <div
+          className="h-[100%] w-[100%] "
+          style={style}
+        >
+          <BorderWrap {...props.setting.styleSetting.border}>
+            <Suspense fallback={<Loading className="flex items-center justify-center" />}>
+              {
             CurComponent ? <CurComponent {...props} /> : null
           }
-          </Suspense>
-        </BorderWrap>
+            </Suspense>
+          </BorderWrap>
 
+        </div>
       </div>
     </ToolPopover>
   )

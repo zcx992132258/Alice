@@ -1,9 +1,10 @@
 'use client'
 import { cloneDeep } from 'lodash-es'
 import type { Component } from '@lowCode/types'
+import { Suspense } from 'react'
 import StyleSettingCss from '../style/index.module.scss'
 import { usePageContext } from '@/app/_components'
-import { ColorPicker } from '@/lib/Antd'
+import { ColorPicker, Skeleton } from '@/lib/Antd'
 import { useCreation } from '@/lib/ahook'
 import * as BorderComponents from '@/lib/DataV'
 
@@ -66,20 +67,21 @@ export function BorderSetting() {
           components.map((v) => {
             const { Component } = v
             return (
-              <div
-                className={`h-[150px] p-[20px] mb-[20px] hover:bg-[#e6f4ff] rounded-[8px] cursor-pointer ${v.key === border.componentName ? StyleSettingCss.active : ''}`}
-                key={v.key}
-                onClick={() => handleSetBorderComponent(v.key)}
-              >
-                <Component
-                  backgroundColor={border.backgroundColor}
-                  color={[border.color[0], border.color[1]]}
-                  title={border.title}
-                  titleWidth={border.titleWidth}
+              <Suspense key={v.key} fallback={<Skeleton.Button style={{ height: `150px`, width: '100%' }} block active className="mb-[20px]" />}>
+                <div
+                  className={`h-[250px] p-[20px] mb-[20px] hover:bg-[#e6f4ff] rounded-[8px] cursor-pointer ${v.key === border.componentName ? StyleSettingCss.active : ''}`}
+                  onClick={() => handleSetBorderComponent(v.key)}
                 >
-                </Component>
-              </div>
+                  <Component
+                    backgroundColor={border.backgroundColor}
+                    color={[border.color[0], border.color[1]]}
+                    title={border.title}
+                    titleWidth={border.titleWidth}
+                  >
+                  </Component>
 
+                </div>
+              </Suspense>
             )
           })
         }

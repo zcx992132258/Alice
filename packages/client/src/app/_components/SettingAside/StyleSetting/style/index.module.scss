@@ -5,8 +5,12 @@
     :global(.border) {
       border-width:0px;
     }
+    :global(.skeleton){
+      width: 100% !important;
+    }
     .active{
       background-color: #e6f4ff;
     }
   }
 }
+

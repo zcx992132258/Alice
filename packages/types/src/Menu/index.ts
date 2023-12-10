@@ -1,4 +1,5 @@
 import type { EChartsOption } from 'echarts'
+import type { Component } from '../Component'
 
 export interface IMenuData {
   name: string
@@ -8,18 +9,10 @@ export interface IMenuData {
   width: number
   setting: {
     styleSetting: {
-      border: {
-        componentName: null | string
-        color: string[]
-        backgroundColor: string
-        reverse: true | boolean
-        title: string
-        titleWidth: number
-        settingComponentName: string
-      }
+      border: Component['setting']['styleSetting']['border']
+      baseStyle: Component['setting']['styleSetting']['baseStyle']
     }
   }
-
 }
 
 export interface IMenu {

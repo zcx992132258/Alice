@@ -18,6 +18,16 @@ export interface Component {
         titleWidth: number
         settingComponentName: string
       }
+      baseStyle: {
+        padding: number
+        useBackgroundColor: boolean
+        backgroundColor: null | string
+        backgroundImage: null | string
+        backgroundImageName: null | string
+        settingComponentName: string
+        useBackgroundImage: boolean
+        borderRadius: number
+      }
     }
   }
 }

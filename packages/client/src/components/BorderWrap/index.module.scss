@@ -1,0 +1,5 @@
+.borderWrap{
+  :global(.border) {
+    border-width:0px;
+  }
+}
