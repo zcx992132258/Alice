@@ -1,5 +1,5 @@
 'use client'
-import type { Component, IMenu, IMenuData } from '@lowCode/types'
+import type { Component, IMenu, IMenuData } from '@alice/types'
 import type {
   Dispatch,
   SetStateAction,
@@ -65,6 +65,19 @@ const menuData: IMenu[] = [
               backgroundImageName: null,
               useBackgroundImage: false,
               settingComponentName: 'BaseStyleSetting',
+            },
+          },
+          graphSetting: {
+            lineSetting: {
+              lineWidth: 1,
+              symbol: 'circle',
+              symbolSize: 2,
+              smooth: false,
+              labelFontSize: 12,
+              labelFontWeight: 'normal',
+              labelBorderWidth: 0,
+              labelBorderColor: null,
+              padding: 0,
             },
           },
         },

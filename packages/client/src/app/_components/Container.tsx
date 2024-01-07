@@ -3,9 +3,8 @@ import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 import type { Layout } from 'react-grid-layout'
 import { Responsive, WidthProvider } from 'react-grid-layout'
-import type { IMenuData } from '@lowCode/types'
+import type { IMenuData } from '@alice/types'
 import { memo } from 'react'
-import { first } from 'lodash-es'
 import { usePageContext } from './Context'
 import { LayoutComponent } from '.'
 
@@ -68,7 +67,6 @@ export const Container = memo(() => {
         handleSetCurComponent(component, true)
     }
   }
-
   return (
     <ResponsiveReactGridLayout
       className="overflow-auto"

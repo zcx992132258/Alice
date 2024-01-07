@@ -1,4 +1,4 @@
-import type { Component } from '@lowCode/types'
+import type { Component } from '@alice/types'
 import { useState } from 'react'
 
 export function useCurComponent() {

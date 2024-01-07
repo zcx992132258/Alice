@@ -1,4 +1,4 @@
-import type { Component, IMenuData } from '@lowCode/types'
+import type { Component, IMenuData } from '@alice/types'
 import { useCreation, useMemoizedFn } from 'ahooks'
 import { useState } from 'react'
 import type { Layout } from 'react-grid-layout'

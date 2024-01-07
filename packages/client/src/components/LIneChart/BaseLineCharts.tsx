@@ -1,11 +1,18 @@
-import type { Component } from '@lowCode/types'
-import { useEchartsCreate } from '@/hooks/useEchartsCreate'
+import type { Component } from '@alice/types'
+import { useCreation } from 'ahooks'
+import { transFromLineSetting, useEchartsCreate } from '@/hooks/useEchartsCreate'
 
 export function BaseLineCharts(props: Component) {
-  const { wrap } = useEchartsCreate(props.chartOptions)
+  const options = useCreation(() => {
+    const setting = props.setting.graphSetting.lineSetting!
+    return transFromLineSetting(setting, props.chartOptions)
+  }, [props.setting.graphSetting])
+
+  const { wrap } = useEchartsCreate(options)
+
   return (
-    <div className='h-[100%] w-[100%]'>
-      <div ref={wrap} className='h-[100%] w-[100%]' />
+    <div className="h-[100%] w-[100%]">
+      <div ref={wrap} className="h-[100%] w-[100%]" />
     </div>
 
   )

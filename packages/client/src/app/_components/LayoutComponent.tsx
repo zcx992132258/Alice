@@ -1,4 +1,4 @@
-import type { Component } from '@lowCode/types'
+import type { Component } from '@alice/types'
 import type { CSSProperties, LazyExoticComponent } from 'react'
 import { Suspense, memo } from 'react'
 import { ToolPopover, usePageContext } from '.'

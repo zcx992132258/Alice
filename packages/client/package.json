@@ -1,5 +1,5 @@
 {
-  "name": "@lowCode/client",
+  "name": "@alice/client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,11 +10,11 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@alice/tools": "workspace:*",
+    "@alice/types": "workspace:*",
     "@ant-design/cssinjs": "^1.17.2",
     "@ant-design/icons": "^5.2.6",
     "@jiaminghi/data-view-react": "^1.2.5",
-    "@lowCode/tools": "workspace:*",
-    "@lowCode/types": "workspace:*",
     "@types/node": "20.5.4",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",

@@ -1,5 +1,5 @@
 {
-  "name": "@lowCode/tools",
+  "name": "@alice/tools",
   "version": "1.0.0",
   "description": "",
   "author": "",
@@ -8,6 +8,8 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5"
   }
-
 }

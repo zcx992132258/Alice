@@ -1,5 +1,5 @@
 {
-  "name": "lowCode",
+  "name": "alice",
   "type": "module",
   "version": "1.0.0",
   "description": "",
@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clientdev": " cd packages/client/ && pnpm run dev",
+    "client": " cd packages/client/ && pnpm run dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

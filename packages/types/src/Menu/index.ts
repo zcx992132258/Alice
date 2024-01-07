@@ -8,10 +8,8 @@ export interface IMenuData {
   height: number
   width: number
   setting: {
-    styleSetting: {
-      border: Component['setting']['styleSetting']['border']
-      baseStyle: Component['setting']['styleSetting']['baseStyle']
-    }
+    styleSetting: Component['setting']['styleSetting']
+    graphSetting?: Component['setting']['graphSetting']
   }
 }
 

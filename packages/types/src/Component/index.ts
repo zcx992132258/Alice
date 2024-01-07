@@ -1,4 +1,4 @@
-import type { EChartsOption } from 'echarts'
+import type { EChartsOption, RegisteredSeriesOption } from 'echarts'
 import type { Layout } from 'react-grid-layout'
 
 export interface Component {
@@ -27,6 +27,19 @@ export interface Component {
         settingComponentName: string
         useBackgroundImage: boolean
         borderRadius: number
+      }
+    }
+    graphSetting: {
+      lineSetting?: {
+        lineWidth: number
+        symbol: string
+        symbolSize: number
+        smooth: boolean
+        labelFontSize: number
+        labelFontWeight: string
+        labelBorderWidth: number
+        labelBorderColor: string | null
+        padding: number
       }
     }
   }

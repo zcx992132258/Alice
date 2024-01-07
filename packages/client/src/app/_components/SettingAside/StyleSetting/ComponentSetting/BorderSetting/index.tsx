@@ -1,8 +1,8 @@
 'use client'
 import { cloneDeep } from 'lodash-es'
-import type { Component } from '@lowCode/types'
+import type { Component } from '@alice/types'
 import { Suspense } from 'react'
-import StyleSettingCss from '../style/index.module.scss'
+import StyleSettingCss from '../../style/index.module.scss'
 import { usePageContext } from '@/app/_components'
 import { ColorPicker, Skeleton } from '@/lib/Antd'
 import { useCreation } from '@/lib/ahook'
@@ -19,8 +19,8 @@ const components = Object.entries(BorderComponents).map((v) => {
 export function BorderSetting() {
   const { curComponent, setCurComponent, handleSetComponent } = usePageContext()
 
-  const border = useCreation<Component['setting']['styleSetting']['border']>(() => {
-    return curComponent!.setting.styleSetting.border
+  const styleSetting = useCreation(() => {
+    return curComponent!.setting.styleSetting
   }, [curComponent])
 
   const setComponentBorder = (data: Partial<Component['setting']['styleSetting']['border']>) => {
@@ -41,7 +41,7 @@ export function BorderSetting() {
   }
 
   const handleSetBorderComponent = (componentName: string) => {
-    const name = componentName === border.componentName ? null : componentName
+    const name = componentName === styleSetting.border.componentName ? null : componentName
     setComponentBorder({
       componentName: name,
     })
@@ -52,15 +52,15 @@ export function BorderSetting() {
       <div className="flex items-center mb-[16px]">
         边框主颜色：
         <ColorPicker
-          value={border.color[0].toString()}
+          value={styleSetting.border.color[0].toString()}
           onChangeComplete={(color) => {
-            handleColorChange([color.toHexString(), border.color[1]])
+            handleColorChange([color.toHexString(), styleSetting.border.color[1]])
           }}
         />
       </div>
       <div className="flex items-center mb-[8px]">
         边框副颜色：
-        <ColorPicker value={border.color[1].toString()} onChangeComplete={color => handleColorChange([border.color[0], color.toHexString()])} />
+        <ColorPicker value={styleSetting.border.color[1].toString()} onChangeComplete={color => handleColorChange([styleSetting.border.color[0], color.toHexString()])} />
       </div>
       <div>
         {
@@ -69,14 +69,14 @@ export function BorderSetting() {
             return (
               <Suspense key={v.key} fallback={<Skeleton.Button style={{ height: `150px`, width: '100%' }} block active className="mb-[20px]" />}>
                 <div
-                  className={`h-[250px] p-[20px] mb-[20px] hover:bg-[#e6f4ff] rounded-[8px] cursor-pointer ${v.key === border.componentName ? StyleSettingCss.active : ''}`}
+                  className={`h-[250px] p-[20px] mb-[20px] hover:bg-[#e6f4ff] rounded-[8px] cursor-pointer ${v.key === styleSetting.border.componentName ? StyleSettingCss.active : ''}`}
                   onClick={() => handleSetBorderComponent(v.key)}
                 >
                   <Component
-                    backgroundColor={border.backgroundColor}
-                    color={[border.color[0], border.color[1]]}
-                    title={border.title}
-                    titleWidth={border.titleWidth}
+                    backgroundColor={styleSetting.border.backgroundColor}
+                    color={[styleSetting.border.color[0], styleSetting.border.color[1]]}
+                    title={styleSetting.border.title}
+                    titleWidth={styleSetting.border.titleWidth}
                   >
                   </Component>
 

@@ -1,44 +1,56 @@
 import type { Buffer } from 'node:buffer'
+import type { AvifOptions, GifOptions, HeifOptions, Jp2Options, JpegOptions, JxlOptions, OutputOptions, PngOptions, TiffOptions, WebpOptions } from 'sharp'
 import sharp from 'sharp'
+import { streamToBuffer } from '@alice/tools'
 
 export async function POST(request: Request) {
   const formData = await request.formData()
   const file = formData.get('file')
   if (file instanceof File) {
-    const reader = file!.stream().getReader()
-    const chunks: Uint8Array [] = []
+    const imagesBuffer = await streamToBuffer(file.stream())
+    const metadata = await sharp(imagesBuffer).metadata()
+    let options: sharp.SharpOptions = {} // sharp 配置
+    let formatOptions: OutputOptions
+      | JpegOptions
+      | PngOptions
+      | WebpOptions
+      | AvifOptions
+      | HeifOptions
+      | JxlOptions
+      | GifOptions
+      | Jp2Options
+      | TiffOptions = {} // 不同格式方法参数
 
-    // 读取文件流并存储为数组
-    while (true) {
-      const { done, value } = await reader.read()
-      if (done)
+    // 根据文件格式, 设置不同的配置
+    switch (metadata.format) {
+      case 'gif':
+        options = {
+          animated: true,
+          limitInputPixels: false,
+        }
+        formatOptions = { colours: 128 }
         break
-      chunks.push(value)
+      case 'raw':
+        break
+      default:
+        formatOptions = { quality: 75 }
     }
-
-    // 将数组合并成一个 Uint8Array 类型的数组
-    const uint8Array = chunks.reduce((acc, chunk) => {
-      const chunkArray = Array.from(chunk)
-      return new Uint8Array([...acc, ...chunkArray])
-    }, new Uint8Array())
-
-    // 最后将 Uint8Array 转换为 ArrayBuffer
-    const fileBuffer = uint8Array.buffer
-    const processedImageData = await sharp(fileBuffer).resize({ width: 500 }) // 调整大小
-      .toBuffer()
-    const base64Data = arrayBufferToBase64(processedImageData)
+    // 压缩: 调用 sharp
+    const newBuffer = await ((sharp(imagesBuffer, options) as any)
+      ?.[metadata.format!](formatOptions)
+      .toBuffer())
     // 现在 fileBuffer 就是文件的 ArrayBuffer，可以用于后续的处理
-    return Response.json({ data: base64Data, code: 200 }, { status: 200 })
+    return new Response(newBuffer, {
+      status: 200,
+      headers: {
+        'Content-Type': 'image/jpeg', // 设置响应的内容类型
+        // 可以根据需要设置其他响应头
+      },
+    })
   }
 
   return Response.json({
     code: 500,
     msg: '上传文件错误',
   }, { status: 200 })
-}
-
-function arrayBufferToBase64(buffer: Buffer) {
-  const uint8Array = new Uint8Array(buffer)
-  const binaryString = uint8Array.reduce((acc, byte) => acc + String.fromCharCode(byte), '')
-  return btoa(binaryString)
 }

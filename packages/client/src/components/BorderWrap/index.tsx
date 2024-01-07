@@ -1,5 +1,5 @@
 'use client'
-import type { Component } from '@lowCode/types'
+import type { Component } from '@alice/types'
 import { memo, useRef } from 'react'
 import styleCss from './index.module.scss'
 import * as BorderComponents from '@/lib/DataV'
