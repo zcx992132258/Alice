@@ -7,7 +7,7 @@ import { useSize } from 'ahooks'
 import type { Component } from '@alice/types'
 
 export function transFromLineSetting(setting: NonNullable<Component['setting']['graphSetting']['lineSetting']>, options: EChartsOption): EChartsOption {
-  const { lineWidth, symbol, symbolSize, smooth } = setting
+  const { lineWidth, symbol, symbolSize, smooth, tagLabelSetting } = setting
   return {
     ...options,
     series: (options.series as RegisteredSeriesOption['line'][]).map((v) => {
@@ -20,6 +20,11 @@ export function transFromLineSetting(setting: NonNullable<Component['setting']['
         symbol,
         symbolSize,
         smooth,
+        label: {
+          show: tagLabelSetting?.show,
+          fontSize: tagLabelSetting?.fontSize,
+          color: tagLabelSetting?.fontColor,
+        },
       }
     }),
   }

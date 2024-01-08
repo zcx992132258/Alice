@@ -40,7 +40,13 @@ export interface Component {
         labelBorderWidth: number
         labelBorderColor: string | null
         padding: number
+        tagLabelSetting?: {
+          show: boolean
+          fontSize?: number
+          fontColor?: string
+        }
       }
+
     }
   }
 }

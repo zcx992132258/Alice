@@ -78,7 +78,13 @@ const menuData: IMenu[] = [
               labelBorderWidth: 0,
               labelBorderColor: null,
               padding: 0,
+              tagLabelSetting: {
+                show: false,
+                fontSize: 12,
+                fontColor: '#FFFFFF',
+              },
             },
+
           },
         },
       },

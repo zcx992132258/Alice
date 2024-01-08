@@ -2,7 +2,7 @@ import { memo } from 'react'
 import type { Component } from '@alice/types'
 import { usePageContext } from '../..'
 import { BaseStyleSetting, BorderSetting } from './ComponentSetting'
-import { LineSizeSetting } from './GraphicAttributeSetting'
+import { LineSizeSetting, TagLabelSetting } from './GraphicAttributeSetting'
 import StyleSettingCss from './style/index.module.scss'
 import { BASE_LINE_CHARTS } from '@/constants'
 import { Collapse } from '@/lib/Antd'
@@ -30,6 +30,12 @@ const graphicAttributeSettingCollapseItems = {
       key: 'size',
       children: <LineSizeSetting></LineSizeSetting>,
       settingcomponentname: 'LineSizeSetting',
+    },
+    {
+      label: '标签',
+      key: 'tag',
+      children: <TagLabelSetting></TagLabelSetting>,
+      settingcomponentname: 'TagLabelSetting',
     },
   ],
 }
