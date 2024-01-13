@@ -1,14 +1,11 @@
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { cloneDeep } from 'lodash-es'
-import { usePageContext } from '@/app/_components'
-import type { ColorPickerProps } from '@/lib/Antd'
-import { Checkbox, Col, ColorPicker, Row, Select } from '@/lib/Antd'
+import { usePageContext } from '@alice/client/app/_components'
+import type { ColorPickerProps } from '@alice/client/lib/Antd'
+import { Checkbox, Col, ColorPicker, Row, Select } from '@alice/client/lib/Antd'
+import { CreateFontSizeOptions } from '@alice/client/util/CreateFontSizeOptions'
 
-let num = 9
-const fontSizeOptions = Array.from({ length: 31 }).map(() => {
-  const value = num += 1
-  return { value, label: value }
-})
+const fontSizeOptions = CreateFontSizeOptions()
 
 export function TagLabelSetting() {
   const { curComponent, setCurComponent, handleSetComponent } = usePageContext()

@@ -45,6 +45,14 @@ export interface Component {
           fontSize?: number
           fontColor?: string
         }
+        tooltipSetting: {
+          show: boolean
+          fontSize?: number
+          fontColor?: string
+          backGroundColor?: string
+          borderWidth?: number
+          borderColor?: string
+        }
       }
 
     }

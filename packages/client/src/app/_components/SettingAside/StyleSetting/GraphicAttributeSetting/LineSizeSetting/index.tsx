@@ -1,9 +1,9 @@
 import { useCreation } from 'ahooks'
 import { cloneDeep } from 'lodash-es'
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
-import { usePageContext } from '@/app/_components'
-import type { SliderSingleProps } from '@/lib/Antd'
-import { Checkbox, Col, Row, Select, Slider } from '@/lib/Antd'
+import { usePageContext } from '@alice/client/app/_components'
+import type { SliderSingleProps } from '@alice/client/lib/Antd'
+import { Checkbox, Col, Row, Select, Slider } from '@alice/client/lib/Antd'
 
 const symbolOptions = [
   { value: 'circle', label: '圆形' },

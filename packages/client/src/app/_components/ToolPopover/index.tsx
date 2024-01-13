@@ -1,10 +1,10 @@
 'use client'
 import { memo, useEffect, useRef, useState } from 'react'
+import { Popover } from '@alice/client/lib/Antd'
+import { useCreation, useMemoizedFn } from '@alice/client/lib/ahook'
+import { SingleIntersectionObserver } from '@alice/client/util/SingleIntersectionObserver'
 import { usePageContext } from '../Context'
 import { PopoverContent } from './PopoverContent'
-import { Popover } from '@/lib/Antd'
-import { useCreation, useMemoizedFn } from '@/lib/ahook'
-import { SingleIntersectionObserver } from '@/util/SingleIntersectionObserver'
 
 export const ToolPopover = memo((props: {
   id: string

@@ -1,3 +1,3 @@
-import { Loading } from '@/components'
+import { Loading } from '@alice/client/components'
 
 export default Loading

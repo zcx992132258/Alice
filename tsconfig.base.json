@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@alice/client/*": ["./packages/client/src/*"],
+      "@alice/tools/*": ["./packages/tools/src/*"],
+      "@alice/server/*": ["./packages/server/src/*"]
+    },
+    "declaration": true
+  }
+}

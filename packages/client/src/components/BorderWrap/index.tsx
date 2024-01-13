@@ -1,9 +1,9 @@
 'use client'
 import type { Component } from '@alice/types'
 import { memo, useRef } from 'react'
+import * as BorderComponents from '@alice/client/lib/DataV'
+import { useCreation, useSize } from '@alice/client/lib/ahook'
 import styleCss from './index.module.scss'
-import * as BorderComponents from '@/lib/DataV'
-import { useCreation, useSize } from '@/lib/ahook'
 
 const components = Object.entries(BorderComponents).map((v) => {
   const [key, Component] = v

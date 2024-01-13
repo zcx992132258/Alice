@@ -10,8 +10,8 @@ import {
   useState,
 } from 'react'
 import type { Layout } from 'react-grid-layout'
+import { BASE_LINE_CHARTS } from '@alice/client/constants'
 import { useComponent, useCurComponent, useSettingAside } from '../_hooks'
-import { BASE_LINE_CHARTS } from '@/constants'
 
 interface DroppingItem {
   i: string
@@ -71,7 +71,7 @@ const menuData: IMenu[] = [
             lineSetting: {
               lineWidth: 1,
               symbol: 'circle',
-              symbolSize: 2,
+              symbolSize: 4,
               smooth: false,
               labelFontSize: 12,
               labelFontWeight: 'normal',
@@ -82,6 +82,9 @@ const menuData: IMenu[] = [
                 show: false,
                 fontSize: 12,
                 fontColor: '#FFFFFF',
+              },
+              tooltipSetting: {
+                show: false,
               },
             },
 

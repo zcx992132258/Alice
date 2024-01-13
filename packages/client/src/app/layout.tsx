@@ -1,6 +1,7 @@
+import '@alice/client/assets/styles/index.scss'
+import React from 'react'
 import { Inter } from 'next/font/google'
-import StyledComponentsRegistry from '@/lib/AntdRegistry.tsx'
-import '@/assets/styles/index.scss'
+import { AntdRegistry } from '@ant-design/nextjs-registry'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,9 +16,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body className={inter.className}>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <AntdRegistry>{children}</AntdRegistry>
       </body>
     </html>
   )

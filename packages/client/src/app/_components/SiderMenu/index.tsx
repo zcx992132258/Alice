@@ -4,13 +4,13 @@ import { Layout, Menu, Tooltip } from 'antd'
 import { memo, useState } from 'react'
 import { first } from 'lodash-es'
 import { useCreation } from 'ahooks'
+import { IconFont } from '@alice/client/lib/Icon'
 import { DragItem, DragWrap, style, usePageContext } from '..'
-import { IconFont } from '@/lib/Icon'
 
 const { Sider } = Layout
 
 const MenuItem
-  = memo(({ label, value, iconType }: { label: string; value?: string; iconType: string }) => {
+  = memo(({ label, value, iconType }: { label: string, value?: string, iconType: string }) => {
     return (
       <Tooltip title={label}>
         <IconFont

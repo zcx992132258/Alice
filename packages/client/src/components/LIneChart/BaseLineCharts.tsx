@@ -1,6 +1,6 @@
 import type { Component } from '@alice/types'
 import { useCreation } from 'ahooks'
-import { transFromLineSetting, useEchartsCreate } from '@/hooks/useEchartsCreate'
+import { transFromLineSetting, useEchartsCreate } from '@alice/client/hooks/useEchartsCreate'
 
 export function BaseLineCharts(props: Component) {
   const options = useCreation(() => {

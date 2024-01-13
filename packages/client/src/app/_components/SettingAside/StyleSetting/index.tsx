@@ -1,12 +1,12 @@
 import { memo } from 'react'
 import type { Component } from '@alice/types'
+import { BASE_LINE_CHARTS } from '@alice/client/constants'
+import { Collapse } from '@alice/client/lib/Antd'
+import { useCreation } from '@alice/client/lib/ahook'
 import { usePageContext } from '../..'
 import { BaseStyleSetting, BorderSetting } from './ComponentSetting'
-import { LineSizeSetting, TagLabelSetting } from './GraphicAttributeSetting'
+import { LineSizeSetting, TagLabelSetting, TooltipSetting } from './GraphicAttributeSetting'
 import StyleSettingCss from './style/index.module.scss'
-import { BASE_LINE_CHARTS } from '@/constants'
-import { Collapse } from '@/lib/Antd'
-import { useCreation } from '@/lib/ahook'
 
 const componentSettingCollapseItems = [
   {
@@ -36,6 +36,12 @@ const graphicAttributeSettingCollapseItems = {
       key: 'tag',
       children: <TagLabelSetting></TagLabelSetting>,
       settingcomponentname: 'TagLabelSetting',
+    },
+    {
+      label: '提示',
+      key: 'tooltip',
+      children: <TooltipSetting></TooltipSetting>,
+      settingcomponentname: 'TooltipSetting',
     },
   ],
 }

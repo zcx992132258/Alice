@@ -1,3 +1,3 @@
-export * from './src/base64ToFile.ts'
-export * from './src/fileConversionUtils.ts'
-export * from './src/getBase64.ts'
+export * from '@alice/tools/base64ToFile.ts'
+export * from '@alice/tools/fileConversionUtils.ts'
+export * from '@alice/tools/getBase64.ts'

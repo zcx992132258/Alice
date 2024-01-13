@@ -7,9 +7,19 @@ import { useSize } from 'ahooks'
 import type { Component } from '@alice/types'
 
 export function transFromLineSetting(setting: NonNullable<Component['setting']['graphSetting']['lineSetting']>, options: EChartsOption): EChartsOption {
-  const { lineWidth, symbol, symbolSize, smooth, tagLabelSetting } = setting
+  const { lineWidth, symbol, symbolSize, smooth, tagLabelSetting, tooltipSetting } = setting
   return {
     ...options,
+    tooltip: {
+      show: tooltipSetting.show,
+      borderColor: tooltipSetting.borderColor,
+      borderWidth: tooltipSetting.borderWidth,
+      textStyle: {
+        fontSize: tooltipSetting.fontSize,
+        color: tooltipSetting.fontColor,
+      },
+      backgroundColor: tooltipSetting.backGroundColor,
+    },
     series: (options.series as RegisteredSeriesOption['line'][]).map((v) => {
       return {
         ...v,

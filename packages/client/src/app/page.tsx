@@ -1,9 +1,9 @@
 import { Suspense } from 'react'
+import { Loading } from '@alice/client/components'
+import { Content, Header, Layout } from '@alice/client/lib/Antd'
 import { PageProvider } from './_components/Context'
 import { CollapseMenu, Container, SettingAside, SiderMenu } from './_components'
 import styles from './_components/style/index.module.scss'
-import { Content, Header, Layout } from '@/lib/Antd'
-import { Loading } from '@/components'
 
 function Page() {
   return (
