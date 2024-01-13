@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash-es'
 import type { Component } from '@alice/types'
 import { Suspense } from 'react'
 import { usePageContext } from '@alice/client/app/_components'
-import { ColorPicker, Skeleton } from '@alice/client/lib/Antd'
+import { Col, ColorPicker, Row, Skeleton } from '@alice/client/lib/Antd'
 import { useCreation } from '@alice/client/lib/ahook'
 import * as BorderComponents from '@alice/client/lib/DataV'
 import StyleSettingCss from '../../style/index.module.scss'
@@ -49,19 +49,23 @@ export function BorderSetting() {
 
   return (
     <div className={StyleSettingCss['border-setting']}>
-      <div className="flex items-center mb-[16px]">
-        边框主颜色：
-        <ColorPicker
-          value={styleSetting.border.color[0].toString()}
-          onChangeComplete={(color) => {
-            handleColorChange([color.toHexString(), styleSetting.border.color[1]])
-          }}
-        />
-      </div>
-      <div className="flex items-center mb-[8px]">
-        边框副颜色：
-        <ColorPicker value={styleSetting.border.color[1].toString()} onChangeComplete={color => handleColorChange([styleSetting.border.color[0], color.toHexString()])} />
-      </div>
+      <Row className="flex items-center mb-[16px]">
+        <Col span={6}>边框主颜色：</Col>
+        <Col span={18}>
+          <ColorPicker
+            value={styleSetting.border.color[0].toString()}
+            onChangeComplete={(color) => {
+              handleColorChange([color.toHexString(), styleSetting.border.color[1]])
+            }}
+          />
+        </Col>
+      </Row>
+      <Row className="flex items-center mb-[8px]">
+        <Col span={6}>边框副颜色：</Col>
+        <Col span={18}>
+          <ColorPicker value={styleSetting.border.color[1].toString()} onChangeComplete={color => handleColorChange([styleSetting.border.color[0], color.toHexString()])} />
+        </Col>
+      </Row>
       <div>
         {
           components.map((v) => {

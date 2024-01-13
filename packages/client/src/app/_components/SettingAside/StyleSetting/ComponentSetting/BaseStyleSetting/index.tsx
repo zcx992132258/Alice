@@ -167,7 +167,7 @@ export function BaseStyleSetting() {
       <Row className="mb-[16px] flex items-center ">
         <Col span={6} className="flex items-center ">
           <Checkbox className="mr-[6px]" checked={baseStyle?.useBackgroundColor} onChange={handleUseBackgroundColorChange}></Checkbox>
-          背景色:
+          <span className="ml-[6px]">背景色:</span>
         </Col>
         <Col span={18}>
           <ColorPicker
@@ -179,8 +179,8 @@ export function BaseStyleSetting() {
       </Row>
       <Row className="mb-[16px] flex items-center ">
         <Col span={6}>
-          <Checkbox className="mr-[6px]" checked={baseStyle?.useBackgroundImage} onChange={handleUseBackgroundImageChange}></Checkbox>
-          背景图片:
+          <Checkbox checked={baseStyle?.useBackgroundImage} onChange={handleUseBackgroundImageChange}></Checkbox>
+          <span className="ml-[6px]">背景图片:</span>
         </Col>
         <Col span={18}>
           <Upload
