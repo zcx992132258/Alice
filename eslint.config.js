@@ -10,18 +10,29 @@ import antfu from '@antfu/eslint-config'
 import { FlatCompat } from '@eslint/eslintrc'
 
 const compat = new FlatCompat()
-export default antfu({
-  jsx: true,
-  ...compat.config({
-    extends: [
-      'standard-jsx',
-    ],
+export default antfu(
+  {
+    jsx: true,
+    typescript: true,
+    ignorePatterns: ['**/.env', '**/pnpm-lock.yaml', '**/.gitignore'],
+    ...compat.config({
+      extends: [
+        'standard-jsx',
+      ],
+      rules: {
+        'curly': 'off',
+        'max-len': ['error', { code: 100 }],
+      },
+    }),
+  },
+  {
+
+    // Remember to specify the file glob here, otherwise it might cause the vue plugin to handle non-vue files
+    files: ['**/*.controller.ts', '**/*.guard.ts'],
     rules: {
-      'curly': 'off',
-      'max-len': ['error', { code: 100 }],
+      'ts/consistent-type-imports': 'off',
     },
-  }),
-},
+  },
   // {
   //   ignores: [],
   // },

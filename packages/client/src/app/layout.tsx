@@ -2,6 +2,7 @@ import '@alice/client/assets/styles/index.scss'
 import React from 'react'
 import { Inter } from 'next/font/google'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
+import { UserAuthChecker } from '../auth'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          <UserAuthChecker>{children}</UserAuthChecker>
+
+        </AntdRegistry>
       </body>
     </html>
   )

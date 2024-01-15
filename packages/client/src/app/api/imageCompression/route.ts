@@ -1,4 +1,3 @@
-import type { Buffer } from 'node:buffer'
 import type { AvifOptions, GifOptions, HeifOptions, Jp2Options, JpegOptions, JxlOptions, OutputOptions, PngOptions, TiffOptions, WebpOptions } from 'sharp'
 import sharp from 'sharp'
 import { streamToBuffer } from '@alice/tools'

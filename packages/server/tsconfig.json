@@ -10,7 +10,6 @@
     "strictNullChecks": false,
     "noFallthroughCasesInSwitch": false,
     "noImplicitAny": false,
-    "declaration": true,
     "outDir": "./dist",
     "removeComments": true,
     "sourceMap": true,
