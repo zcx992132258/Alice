@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers'
 import style from './_components/style/index.module.scss'
 import { SignIn, SignUp, TransitionWrap } from './_components'
 
