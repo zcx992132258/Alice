@@ -28,7 +28,7 @@ export default antfu(
   {
 
     // Remember to specify the file glob here, otherwise it might cause the vue plugin to handle non-vue files
-    files: ['**/*.controller.ts', '**/*.guard.ts'],
+    files: ['**/*.ts'],
     rules: {
       'ts/consistent-type-imports': 'off',
     },

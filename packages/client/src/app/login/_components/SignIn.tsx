@@ -1,11 +1,20 @@
+'use client'
 import { Form, FormItem, Input } from '@alice/client/lib/Antd'
 import Password from 'antd/es/input/Password'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import style from './style/index.module.scss'
 
 export function SignIn() {
+  const router = useRouter()
+  const onFinish = async (values: { name: string, password: string }) => {
+    await signIn('credentials', { ...values, redirect: false })
+    router.push('/')
+  }
+
   return (
     <div className={`${style.container__form} ${style['container--signin']}`}>
-      <Form labelCol={{ span: 0 }} wrapperCol={{ span: 24 }} className={style.form}>
+      <Form labelCol={{ span: 0 }} wrapperCol={{ span: 24 }} className={style.form} onFinish={onFinish}>
         <h2 className={style.form__title}>
           登录
         </h2>

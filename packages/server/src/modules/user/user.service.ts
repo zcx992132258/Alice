@@ -1,5 +1,5 @@
 import { User } from '@alice/server/database/alice/user.entity'
-import { HttpException, Inject, Injectable } from '@nestjs/common'
+import { HttpException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import type { Repository } from 'typeorm'
 import { encryptPassword, makeSalt } from '@alice/server/utils/cryptogram'
@@ -10,6 +10,12 @@ import type { LoginDto } from './dto/login.dto'
 export class UserService {
   @InjectRepository(User)
   private userRepository: Repository<User>
+
+  findOne(username: string) {
+    return this.userRepository.findOneBy({
+      username,
+    })
+  }
 
   async register(user: RegisterDto) {
     const foundUser = await this.userRepository.findOneBy({

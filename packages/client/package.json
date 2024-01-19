@@ -21,6 +21,7 @@
     "@types/react-dom": "18.2.7",
     "ahooks": "^3.7.8",
     "antd": "^5.12.8",
+    "axios": "^1.6.5",
     "exceljs": "^4.4.0",
     "lodash-es": "^4.17.21",
     "next": "^14.0.4",

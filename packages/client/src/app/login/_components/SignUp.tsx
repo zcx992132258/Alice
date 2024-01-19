@@ -2,11 +2,14 @@
 import { Form, FormItem, Input } from '@alice/client/lib/Antd'
 import Password from 'antd/es/input/Password'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import style from './style/index.module.scss'
 
 export function SignUp() {
+  const router = useRouter()
   const onFinish = async (values: { name: string, password: string, email: string }) => {
     await signIn('email', { email: values.email, password: values.password })
+    router.push('/')
   }
 
   return (

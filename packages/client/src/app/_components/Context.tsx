@@ -11,6 +11,7 @@ import {
 } from 'react'
 import type { Layout } from 'react-grid-layout'
 import { BASE_LINE_CHARTS } from '@alice/client/constants'
+import { useSession } from 'next-auth/react'
 import { useComponent, useCurComponent, useSettingAside } from '../_hooks'
 
 interface DroppingItem {
@@ -118,7 +119,6 @@ const PageContext = createContext<{
 
 export function PageProvider({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false)
-
   const {
     handleAddComponentData,
     componentData,
