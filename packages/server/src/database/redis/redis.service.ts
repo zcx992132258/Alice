@@ -1,9 +1,12 @@
 import { envConfig } from '@alice/server/config'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import Redis from 'ioredis'
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
+import { Logger } from 'winston'
 
 @Injectable()
 export class RedisService {
+  constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
   private redisMap = new Map<number, Redis>()
   private time = 60 * 60 * 24 * 30
   async initRedis(method: string, db: number = 0) {
@@ -21,6 +24,7 @@ export class RedisService {
       await redis.setex(key, this.time, value)
     }
     catch (error) {
+      this.logger.warn('redis连接失败 setToken失败')
       throw new Error('redis连接失败')
     }
   }
@@ -35,6 +39,7 @@ export class RedisService {
       return value
     }
     catch (error) {
+      this.logger.warn('redis连接失败 getToken失败')
       throw new Error('redis连接失败')
     }
   }

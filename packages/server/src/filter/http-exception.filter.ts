@@ -8,6 +8,7 @@ import {
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
 import { Logger } from 'winston'
 import { Request } from 'express'
+import { isObject } from 'lodash'
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -28,7 +29,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
           : '请求错误'
       }
       else {
-        message = JSON.stringify(exceptionResponse)
+        message = isObject(exceptionResponse) ? '操作失败' : `${exceptionResponse}`
       }
     }
     const request = ctx.getRequest<Request>()

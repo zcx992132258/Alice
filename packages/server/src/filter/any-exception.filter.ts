@@ -17,16 +17,17 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR
 
     const logFormat = ` <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-     Request original url: ${request.originalUrl}
-     Method: ${request.method}
-     IP: ${request.ip}
-     Status code: ${status}
-     Response: ${exception} \n  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      Request original url: ${request.originalUrl}
+      Method: ${request.method}
+      IP: ${request.ip}
+      Status code: ${status}
+      Response: ${exception} \n  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
      `
     this.logger.warn(logFormat)
     response.status(status).json({
-      statusCode: status,
-      msg: `Service Error: ${exception}`,
+      data: null,
+      message: '操作失败',
+      code: 500,
     })
   }
 }

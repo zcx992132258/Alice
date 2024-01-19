@@ -34,6 +34,12 @@ import { AllExceptionsFilter } from './filter/any-exception.filter'
   }, {
     provide: APP_INTERCEPTOR,
     useClass: TransformInterceptor,
+  }, {
+    provide: APP_FILTER,
+    useClass: AllExceptionsFilter,
+  }, {
+    provide: APP_FILTER,
+    useClass: HttpExceptionFilter,
   }],
 })
 export class AppModule {}

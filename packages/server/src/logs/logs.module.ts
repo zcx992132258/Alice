@@ -31,27 +31,32 @@ function createDailyRotateTransport(level: string, filename: string) {
   })
 }
 
+const createConsoleTransport = (level?:string)=>{
+  return new winston.transports.Console({
+    level,
+    format: winston.format.combine(
+      winston.format.timestamp(),
+      nestWinstonModuleUtilities.format.nestLike(),
+    ),
+  })
+}
+
 @Module({
   imports: [
     WinstonModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        // 控制台输出格式化
-        const consoleTransport = new winston.transports.Console({
-          format: winston.format.combine(
-            winston.format.timestamp(),
-            nestWinstonModuleUtilities.format.nestLike(),
-          ),
-        })
 
         return {
           transports: [
-            consoleTransport,
+            createConsoleTransport(),
+            createConsoleTransport('debug'),
             ...(configService.get('LOG_ON')
               ? [
                   // 使用函数创建transport，防止无论啥条件都创建logs文件
                   createDailyRotateTransport('info', 'info'),
                   createDailyRotateTransport('warn', 'warn'),
+                  createDailyRotateTransport('debug', 'debug'),
                 ]
               : []),
           ],
