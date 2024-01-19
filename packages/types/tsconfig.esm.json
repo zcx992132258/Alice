@@ -4,11 +4,12 @@
     "target": "ES2021",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "strict": true,
     "noFallthroughCasesInSwitch": false,
-    "outDir": "./dist/cjs",
+    "outDir": "./dist/esm",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": false,
     "skipLibCheck": true

@@ -6,14 +6,13 @@ import { JwtService } from '@nestjs/jwt'
 import { isNil } from 'lodash'
 import { JwtStrategy } from '../modules/auth/jwt.strategy'
 import { IS_PUBLIC_KEY } from '../auth'
-import { IPayload } from '../modules/auth/interface'
 import { User } from '../database/alice/user.entity'
 import { envConfig } from '../config'
-import { RedisToken } from '../database/redis'
+import { RedisService } from '../database/redis/redis.service'
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private readonly jwtStrategy: JwtStrategy, private reflector: Reflector, private jwtService: JwtService) {
+  constructor(private readonly redisService: RedisService, private reflector: Reflector, private jwtService: JwtService) {
     super()
   }
 
@@ -49,14 +48,14 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       if (isNil(user))
         throw new HttpException('用户失效', HttpStatus.UNAUTHORIZED)
       const key = `${user.id}`
-      cache = await RedisToken.getToken(key)
+      cache = await this.redisService.getToken(key)
       if (token !== cache) {
         throw new HttpException(
           '您的账号在其他地方登录，请重新登录',
           HttpStatus.UNAUTHORIZED,
         )
       }
-      await RedisToken.setToken(key, token)
+      await this.redisService.setToken(key, token)
     }
     catch (error) {
       throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR)

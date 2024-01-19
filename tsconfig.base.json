@@ -4,7 +4,8 @@
     "paths": {
       "@alice/client/*": ["./packages/client/src/*"],
       "@alice/tools/*": ["./packages/tools/src/*"],
-      "@alice/server/*": ["./packages/server/src/*"]
+      "@alice/server/*": ["./packages/server/src/*"],
+      "@alice/types/*": ["./packages/types/src/*"]
     },
     "declaration": true
   }

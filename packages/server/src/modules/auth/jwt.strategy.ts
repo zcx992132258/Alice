@@ -2,7 +2,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 import { PassportStrategy } from '@nestjs/passport'
 import { Injectable } from '@nestjs/common'
 import { envConfig } from '@alice/server/config'
-import { IPayload } from './interface'
+import { IUser } from '@alice/types/User'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   // JWT验证
-  async validate(payload: IPayload) {
+  async validate(payload: IUser) {
     return {
       username: payload.username,
       email: payload.email,

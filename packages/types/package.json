@@ -5,9 +5,18 @@
   "author": "",
   "license": "ISC",
   "keywords": [],
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pnpm webpack",
+    "build:dev": "pnpm webpack --watch"
+  },
+  "dependencies": {
+    "class-validator": "^0.14.1"
   }
-
 }

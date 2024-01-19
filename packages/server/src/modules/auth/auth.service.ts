@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { encryptPassword } from '@alice/server/utils/cryptogram'
 import { JwtService } from '@nestjs/jwt'
+import { IUser } from '@alice/types/User'
 import { UserService } from '../user/user.service'
 
 @Injectable()
@@ -20,7 +21,7 @@ export class AuthService {
     return null
   }
 
-  async payloadToken(user: any) {
+  async payloadToken(user: IUser) {
     const payload = {
       username: user.username,
       email: user.email,
