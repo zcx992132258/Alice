@@ -10,7 +10,7 @@ export class AuthService {
 
   async validateUser(username: string, pass: string) {
     const user = await this.userService.findOne(username)
-    if (user && user.password === encryptPassword(pass, user.passwdSalt)) {
+    if (user && user.password === encryptPassword(pass.toString(), user.passwdSalt)) {
       const payload = {
         username: user.username,
         email: user.email,

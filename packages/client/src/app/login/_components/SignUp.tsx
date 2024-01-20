@@ -1,14 +1,25 @@
 'use client'
-import { Form, FormItem, Input } from '@alice/client/lib/Antd'
+import { Form, FormItem, Input, message } from '@alice/client/lib/Antd'
 import Password from 'antd/es/input/Password'
-import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { apiRegister } from '@alice/client/api'
+import { useUserStore } from '@alice/client/store'
 import style from './style/index.module.scss'
 
 export function SignUp() {
   const router = useRouter()
+  const login = useUserStore(state => state.login)
   const onFinish = async (values: { name: string, password: string, email: string }) => {
-    await signIn('email', { email: values.email, password: values.password })
+    await apiRegister({
+      username: values.name,
+      password: values.password,
+      email: values.email,
+    })
+    await login({
+      username: values.name,
+      password: values.password,
+    })
+    message.success('注册成功')
     router.push('/')
   }
 

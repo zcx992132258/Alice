@@ -1,4 +1,4 @@
-import { Logger, Module } from '@nestjs/common'
+import { Logger, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { JwtModule } from '@nestjs/jwt'
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
@@ -15,6 +15,7 @@ import { LogsModule } from './logs/logs.module'
 import { TransformInterceptor } from './interceptor/transform.interceptor'
 import { HttpExceptionFilter } from './filter/http-exception.filter'
 import { AllExceptionsFilter } from './filter/any-exception.filter'
+import { LoggerMiddleware } from './middleware/logger.middleware'
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -42,4 +43,10 @@ import { AllExceptionsFilter } from './filter/any-exception.filter'
     useClass: HttpExceptionFilter,
   }],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL })
+  }
+}

@@ -1,20 +1,18 @@
-import { getToken } from 'next-auth/jwt'
-import { withAuth } from 'next-auth/middleware'
-import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export default async function middleware(req: NextRequest, event: NextFetchEvent) {
-  const token = await getToken({ req })
-  const isAuthenticated = !!token
-  if (req.nextUrl.pathname.startsWith('/login') && isAuthenticated)
-    return NextResponse.redirect(new URL('/', req.url))
-
-  const authMiddleware = await withAuth({
-    pages: {
-      signIn: `/login`,
-    },
-  })
-
-  return authMiddleware(req, event)
+export default async function middleware(req: NextRequest) {
+  const userStoreCookie = req.cookies.get('userStore')?.value
+  const user = userStoreCookie?.length ? JSON.parse(userStoreCookie) : null
+  const isGoLogin = req.nextUrl.pathname.startsWith('/login')
+  if (user) {
+    if (user.token) {
+      if (isGoLogin)
+        return NextResponse.redirect(new URL('/', req.url))
+    }
+  }
+  if (!isGoLogin && !user)
+    return NextResponse.redirect(new URL('/login', req.url))
+  return NextResponse.next()
 }
 
 export const config = {

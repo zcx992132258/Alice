@@ -1,6 +1,5 @@
 'use client'
 import { CloseCircleOutlined, Segmented, Sider } from '@alice/client/lib/Antd'
-import { useSession } from 'next-auth/react'
 import { usePageContext } from '../Context'
 import { style } from '../'
 import { StyleSetting } from './StyleSetting'

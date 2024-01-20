@@ -1,10 +1,13 @@
-import { http } from '@alice/client/util/fetch'
-import { LoginDto } from '@alice/types/User'
+import { http } from '@alice/client/util/http'
+import { IUser, LoginDto, RegisterDto } from '@alice/types/User'
 
 export function apiLogin(params: LoginDto) {
-  return http.post('/user/login', params)
+  return http.post<{
+    token: string
+    userInfo: IUser
+  }>('/user/login', params)
 }
 
-export function apiRegister(params: LoginDto) {
+export function apiRegister(params: RegisterDto) {
   return http.post('/user/register', params)
 }

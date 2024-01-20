@@ -15,6 +15,7 @@ export class UserController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Request() req) {
+    console.log(req.user)
     if (req.user) {
       const data = await this.authService.payloadToken({
         ...req.user,
