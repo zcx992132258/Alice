@@ -1,3 +1,6 @@
 import { Loading } from '@alice/client/components'
 
-export default Loading
+export function LoadingPage() {
+  return <Loading></Loading>
+}
+export default LoadingPage

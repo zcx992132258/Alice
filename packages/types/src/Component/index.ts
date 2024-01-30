@@ -29,7 +29,7 @@ export interface Component {
         borderRadius: number
       }
     }
-    graphSetting: {
+    graphSetting?: {
       lineSetting?: {
         lineWidth: number
         symbol: string

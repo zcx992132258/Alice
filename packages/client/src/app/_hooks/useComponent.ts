@@ -41,10 +41,11 @@ export function useComponent() {
   }
 
   const handleAddComponentData = (data: IMenuData, layout: Layout, id: string) => {
+    const { height, width, ...value } = data
     setComponentData([
       ...componentData,
       {
-        ...data,
+        ...value,
         name: renameDuplicate(data.name),
         id,
         layout: {

@@ -1,9 +1,10 @@
 'use client'
-import { Form, FormItem, Input, message } from '@alice/client/lib/Antd'
 import Password from 'antd/es/input/Password'
 import { useRouter } from 'next/navigation'
 import { apiRegister } from '@alice/client/api'
 import { useUserStore } from '@alice/client/store'
+import { Form, Input, message } from 'antd'
+import FormItem from 'antd/es/form/FormItem'
 import style from './style/index.module.scss'
 
 export function SignUp() {

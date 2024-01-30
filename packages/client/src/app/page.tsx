@@ -5,7 +5,7 @@ import { PageProvider } from './_components/Context'
 import { CollapseMenu, Container, SettingAside, SiderMenu } from './_components'
 import styles from './_components/style/index.module.scss'
 
-async function Page() {
+function Page() {
   return (
     <PageProvider>
       <Layout className={`${styles.container} h-[100vh] w-[100vw] overflow-hidden`} hasSider>
