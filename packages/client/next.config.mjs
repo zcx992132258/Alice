@@ -20,6 +20,9 @@ const nextConfig = {
       },
     },
   },
+  experimental: {
+    optimizePackageImports: ['antd', 'lodash-es', 'ahooks', '@ant-design/icons'],
+  },
 }
 
 const millionConfig = {

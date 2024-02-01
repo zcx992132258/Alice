@@ -11,6 +11,7 @@ import {
 } from 'react'
 import type { Layout } from 'react-grid-layout'
 import { BASE_LINE_CHARTS } from '@alice/client/constants'
+import { useUserStore } from '@alice/client/store'
 import { useComponent, useCurComponent, useSettingAside } from '../_hooks'
 
 interface DroppingItem {
@@ -137,7 +138,6 @@ export function PageProvider({ children }: { children: React.ReactNode }) {
     droppingItem,
     setDroppingItem,
   ] = useState<DroppingItem>()
-
   return (
     <PageContext.Provider value={{
       collapsed,

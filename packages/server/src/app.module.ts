@@ -16,6 +16,7 @@ import { TransformInterceptor } from './interceptor/transform.interceptor'
 import { HttpExceptionFilter } from './filter/http-exception.filter'
 import { AllExceptionsFilter } from './filter/any-exception.filter'
 import { LoggerMiddleware } from './middleware/logger.middleware'
+import { DataSourceModule } from './modules/dataSource/dataSource.module'
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -27,7 +28,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware'
     signOptions: {
       expiresIn: '30d',
     },
-  }), AuthModule, UserModule],
+  }), AuthModule, UserModule, DataSourceModule],
   controllers: [AppController],
   providers: [AppService, {
     provide: APP_GUARD,

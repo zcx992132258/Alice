@@ -1,6 +1,6 @@
 'user client'
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import Cookies from 'js-cookie'
 import { IUser } from '@alice/types/User'
 import { apiLogin } from '@alice/client/api'
@@ -27,17 +27,17 @@ export const useUserStore = create(persist<IUserStore>((set) => {
     token: null,
     setUser: user => set({ user }), // 使用 setUser 方法设置 user
     setToken: (token: string) => set({ token }),
-    clearUser: () => set({ user: null, token: null }), // 清除用户信息
+    clearUser: () => {}, // 清除用户信息
     login,
   }
 }, {
   name: 'userStore',
-  storage: {
+  storage: createJSONStorage(() => ({
     getItem(name) {
       try {
-        const data = (Cookies.get('userStore'))
+        const data = (Cookies.get(name))
         if (data?.length)
-          return JSON.parse(data)[name]
+          return JSON.parse(data)
         return null
       }
       catch (error) {
@@ -48,7 +48,7 @@ export const useUserStore = create(persist<IUserStore>((set) => {
     setItem(name, value) {
       const expirationDate = new Date()
       expirationDate.setDate(expirationDate.getDate() + 30)
-      Cookies.set('userStore', JSON.stringify({ user: value.state.user, token: value.state.token }), { expires: expirationDate })
+      Cookies.set(name, JSON.stringify(value), { expires: expirationDate })
     },
     removeItem(name) {
       const str = Cookies.get('userStore')
@@ -60,5 +60,5 @@ export const useUserStore = create(persist<IUserStore>((set) => {
         Cookies.set('userStore', JSON.stringify(data), { expires: expirationDate })
       }
     },
-  },
+  })),
 }))

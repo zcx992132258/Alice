@@ -28,7 +28,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     let value: Promise<boolean> | boolean
     if (activate instanceof Observable)
       value = lastValueFrom(activate)
-
     else
       value = activate
     const request = context.switchToHttp().getRequest()
@@ -65,7 +64,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
   handleRequest(err: Error, user) {
     if (err || !user)
-      throw err || new UnauthorizedException()
+      throw err || new HttpException('用户失效', HttpStatus.UNAUTHORIZED)
     return user
   }
 }

@@ -3,8 +3,7 @@ import { HttpException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import type { Repository } from 'typeorm'
 import { encryptPassword, makeSalt } from '@alice/server/utils/cryptogram'
-import type { RegisterDto } from './dto/register.dto'
-import type { LoginDto } from './dto/login.dto'
+import { LoginDto, RegisterDto } from '@alice/types/User/dto'
 
 @Injectable()
 export class UserService {

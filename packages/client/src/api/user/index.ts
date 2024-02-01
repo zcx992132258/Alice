@@ -5,7 +5,7 @@ export function apiLogin(params: LoginDto) {
   return http.post<{
     token: string
     userInfo: IUser
-  }>('/user/login', params)
+  }>('/user/login', params, { noAuth: true })
 }
 
 export function apiRegister(params: RegisterDto) {

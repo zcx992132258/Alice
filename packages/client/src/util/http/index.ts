@@ -12,13 +12,15 @@ instance.interceptors.request.use(
   (config) => {
     const token = useUserStore.getState().token
     const clearUser = useUserStore.getState().clearUser
-    if (token) {
-      message.error('登录过期')
-      clearUser()
-      location.href = '/login'
-      return
+    if (!token) {
+      if (!config.noAuth) {
+        message.error('登录过期')
+        clearUser()
+        location.href = '/login'
+        return
+      }
     }
-    config.headers.Authorization = token
+    config.headers.Authorization = `Bearer ${token}`
     return config
   },
   (error) => {
