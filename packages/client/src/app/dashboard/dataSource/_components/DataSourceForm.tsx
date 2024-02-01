@@ -19,7 +19,6 @@ export const DataSourceForm = forwardRef((props, ref) => {
           required: true,
           message: '请输入正确主机地址',
         }]}
-        initialValue="124.71.190.206"
       >
         <Input placeholder="请输入主机地址"></Input>
       </Form.Item>
@@ -31,7 +30,6 @@ export const DataSourceForm = forwardRef((props, ref) => {
           required: true,
           message: '请输入正确端口号',
         }]}
-        initialValue={3306}
       >
         <Input placeholder="请输入端口号"></Input>
       </Form.Item>
@@ -42,7 +40,6 @@ export const DataSourceForm = forwardRef((props, ref) => {
           required: true,
           message: '请输入数据库名称',
         }]}
-        initialValue="alice"
       >
         <Input placeholder="请输入数据库名称"></Input>
       </Form.Item>
@@ -53,7 +50,6 @@ export const DataSourceForm = forwardRef((props, ref) => {
           required: true,
           message: '请输入用户名称',
         }]}
-        initialValue="root"
       >
         <Input placeholder="请输入用户名称"></Input>
       </Form.Item>
@@ -64,7 +60,6 @@ export const DataSourceForm = forwardRef((props, ref) => {
           required: true,
           message: '请输入用户密码',
         }]}
-        initialValue="Xy297536"
       >
         <Input placeholder="请输入用户密码"></Input>
       </Form.Item>
