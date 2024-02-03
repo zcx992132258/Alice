@@ -12,6 +12,6 @@ import { UserController } from './user.controller'
   ],
   controllers: [UserController],
   providers: [UserService, AuthService, RedisService],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, UserService],
 })
 export class UserModule {}

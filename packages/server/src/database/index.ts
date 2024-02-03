@@ -1,6 +1,7 @@
 import type { TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { envConfig } from '@alice/server/config'
 import { User } from './alice/user.entity'
+import { DataSource } from './alice/dataSource.entity'
 
 export const mySqlTypeOrmModuleConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -11,7 +12,7 @@ export const mySqlTypeOrmModuleConfig: TypeOrmModuleOptions = {
   database: envConfig.MYSQL_DB_DATABASE,
   synchronize: true,
   logging: true,
-  entities: [User],
+  entities: [User, DataSource],
   poolSize: 10,
   connectorPackage: 'mysql2',
 }

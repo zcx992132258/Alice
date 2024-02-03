@@ -1,6 +1,7 @@
+import { apiGetDataSourceList } from '@alice/client/api/dataSource'
 import { AddDataSource } from './_components/AddDataSource'
 
-export default function Page() {
+export default async function Page() {
   return (
     <div className="h-[100%] ">
       <div className="flex justify-end w-[100%]">
