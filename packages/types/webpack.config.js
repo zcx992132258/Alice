@@ -34,6 +34,11 @@ module.exports = [
         },
       ],
     },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
+    },
   },
   {
     mode: 'production',
@@ -69,6 +74,11 @@ module.exports = [
           },
         },
       ],
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
     },
   },
 ]

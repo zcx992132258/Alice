@@ -7,6 +7,7 @@ import { useDataSourceStore } from '../_store'
 import { DataSourceForm } from './DataSourceForm'
 
 export function AddDataSource() {
+  const addDataSource = useDataSourceStore(state => state.addDataSource)
   const DataSourceFormRef = useRef<{
     validate: () => Promise<{
       database: string
@@ -62,7 +63,7 @@ export function AddDataSource() {
     setSaveBtnLoading(true)
     try {
       const params = await DataSourceFormRef.current.validate()
-      await apiSaveDataSource({
+      await addDataSource({
         ...params,
         port: params.port.toString(),
       })
@@ -83,7 +84,8 @@ export function AddDataSource() {
         width="600px"
         open={isModalOpen}
         afterClose={handleAfterCloseModal}
-
+        onCancel={() => setIsModalOpen(false)}
+        destroyOnClose
         footer={() => {
           return (
             <div>

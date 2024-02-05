@@ -11,7 +11,7 @@ export const DataSourceForm = forwardRef((props: { tables: string[], testDisable
   }))
 
   return (
-    <Form form={form} labelCol={{ span: 5 }}>
+    <Form preserve={false} form={form} labelCol={{ span: 5 }}>
       <Form.Item
         name="aliasName"
         label="名称"
@@ -21,7 +21,6 @@ export const DataSourceForm = forwardRef((props: { tables: string[], testDisable
           min: 2,
           message: '名称长度在2-10个字符',
         }]}
-        initialValue=""
       >
         <Input placeholder="名称"></Input>
       </Form.Item>
@@ -33,7 +32,6 @@ export const DataSourceForm = forwardRef((props: { tables: string[], testDisable
           required: true,
           message: '请输入正确主机地址',
         }]}
-        initialValue="124.71.190.206"
       >
         <Input placeholder="请输入主机地址"></Input>
       </Form.Item>
@@ -45,7 +43,6 @@ export const DataSourceForm = forwardRef((props: { tables: string[], testDisable
           required: true,
           message: '请输入正确端口号',
         }]}
-        initialValue={3306}
       >
         <Input placeholder="请输入端口号"></Input>
       </Form.Item>
@@ -56,7 +53,6 @@ export const DataSourceForm = forwardRef((props: { tables: string[], testDisable
           required: true,
           message: '请输入数据库名称',
         }]}
-        initialValue="alice"
       >
         <Input placeholder="请输入数据库名称"></Input>
       </Form.Item>
@@ -67,7 +63,6 @@ export const DataSourceForm = forwardRef((props: { tables: string[], testDisable
           required: true,
           message: '请输入用户名称',
         }]}
-        initialValue="root"
       >
         <Input placeholder="请输入用户名称"></Input>
       </Form.Item>
@@ -78,7 +73,6 @@ export const DataSourceForm = forwardRef((props: { tables: string[], testDisable
           required: true,
           message: '请输入用户密码',
         }]}
-        initialValue="Xy297536"
       >
         <Input placeholder="请输入用户密码"></Input>
       </Form.Item>

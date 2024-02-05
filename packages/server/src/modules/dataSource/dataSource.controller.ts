@@ -35,8 +35,8 @@ export class DataSourceController {
     return !!data
   }
 
-  @Get('sourceList')
-  async getSourceList(@Param()params: SourceListDto, @Request() req) {
+  @Post('sourceList')
+  async getSourceList(@Body()params: SourceListDto, @Request() req) {
     const user = req.user as IUser
     if (user)
       return await this.dataSourceService.getUserDataSource(user, params)

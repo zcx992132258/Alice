@@ -30,16 +30,18 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    const { code } = response.data
+    return response.data
+  },
+  (error) => {
+    const { code, message: msg } = error.response.data
     const clearUser = useUserStore.getState().clearUser
     if (code === '401') {
       clearUser()
       message.error('登录过期')
       location.href = '/login'
     }
-    return response.data
-  },
-  (error) => {
+    if (Number(code) !== 200)
+      message.error(msg)
     return Promise.reject(error)
   },
 )

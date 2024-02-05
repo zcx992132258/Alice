@@ -1,7 +1,8 @@
-import { PageDto } from '@alice/types/common/dto/page.dto'
-import { IsString } from 'class-validator'
+import { IsOptional, IsString } from 'class-validator'
+import { PageDto } from '../../common/dto'
 
 export class SourceListDto extends PageDto {
   @IsString()
-  search?: string
+  @IsOptional() // 这个装饰器表示该属性是可选的
+  search?: string | null
 }
