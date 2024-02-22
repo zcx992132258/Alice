@@ -1,13 +1,33 @@
 import { Form, Input, Select } from '@alice/client/lib/Antd'
 import { hostRegex, portRegex } from '@alice/tools/src/regex'
+import type { IDataSource } from '@alice/types/DataSource'
 import { forwardRef, useImperativeHandle } from 'react'
 
-export const DataSourceForm = forwardRef((props: { tables: string[], testDisabled: boolean }, ref) => {
-  const [form] = Form.useForm()
+export const DataSourceForm = forwardRef((props: { tables: string[], testDisabled: boolean, sourceDate?: IDataSource }, ref) => {
+  const [form] = Form.useForm<{
+    database: string
+    host: string
+    password: string
+    port: number
+    username: string
+    tableName: string
+    aliasName: string
+  }>()
 
   useImperativeHandle(ref, () => ({
     validate: (files?: string[]) => form.validateFields(files),
     testLinkValidate: () => form.validateFields(['aliasName', 'host', 'port', 'database', 'username', 'password']),
+    setFieldsValue: () => {
+      form.setFieldsValue({
+        database: props.sourceDate?.database,
+        host: props.sourceDate?.host,
+        password: props.sourceDate?.password,
+        port: props.sourceDate?.port,
+        username: props.sourceDate?.username,
+        tableName: props.sourceDate?.tableName,
+        aliasName: props.sourceDate?.aliasName,
+      })
+    },
   }))
 
   return (

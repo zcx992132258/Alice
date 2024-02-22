@@ -36,7 +36,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       message = message || isString(exceptionResponse) ? exceptionResponse.toString() : JSON.stringify(exceptionResponse)
     }
     const request = ctx.getRequest<Request>()
-
     const logFormat = `
     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
       Request original url: ${request.originalUrl}

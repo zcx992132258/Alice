@@ -23,7 +23,6 @@ export class UserService {
 
     if (foundUser)
       throw new HttpException('用户已存在', 200)
-
     const newUser = new User()
     const salt = makeSalt()
     newUser.username = user.username

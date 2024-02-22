@@ -1,54 +1,15 @@
 'use client'
-import { Button, Modal, message } from '@alice/client/lib/Antd'
-import { useRef, useState } from 'react'
-import type { TestLinkDto } from '@alice/types/DataSource/dto/testLink.dto'
-import { apiGetTables, apiSaveDataSource, apiTestLink } from '@alice/client/api/dataSource'
+import { Button, Modal } from '@alice/client/lib/Antd'
+import { useState } from 'react'
 import { useDataSourceStore } from '../_store'
+import { useDataSourceForm } from '../_hooks/useDataSourceForm'
 import { DataSourceForm } from './DataSourceForm'
 
 export function AddDataSource() {
-  const addDataSource = useDataSourceStore(state => state.addDataSource)
-  const DataSourceFormRef = useRef<{
-    validate: () => Promise<{
-      database: string
-      host: string
-      password: string
-      port: number
-      username: string
-      tableName: string
-      aliasName: string
-    }>
-    testLinkValidate: () => Promise<TestLinkDto>
-  }>()
+  const { DataSourceFormRef, tables, setTables, ModalFooter, setSaveBtnLoading, testDisabled, setTestDisabled } = useDataSourceForm()
+
+  const saveDataSource = useDataSourceStore(state => state.saveDataSource)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [tables, setTables] = useState<string[]>([])
-  const [testBtnLoading, setTestBtnLoading] = useState<boolean>(false)
-  const [saveBtnLoading, setSaveBtnLoading] = useState<boolean>(false)
-  const [testDisabled, setTestDisabled] = useState<boolean>(true)
-
-  const getTables = async (params: TestLinkDto) => {
-    const data = await apiGetTables(params)
-    setTables(data)
-  }
-
-  const handleTestLink = async () => {
-    useDataSourceStore.getState().getDataSourceList()
-    setTestBtnLoading(true)
-    try {
-      const params = await DataSourceFormRef.current.testLinkValidate()
-      params.port = params.port.toString()
-      await apiTestLink(params)
-      await getTables(params)
-      setTestDisabled(false)
-      message.success('测试连接成功')
-    }
-    catch (error) {
-      console.error(error)
-    }
-    finally {
-      setTestBtnLoading(false)
-    }
-  }
 
   const handleOpenModal = () => {
     setIsModalOpen(true)
@@ -63,7 +24,7 @@ export function AddDataSource() {
     setSaveBtnLoading(true)
     try {
       const params = await DataSourceFormRef.current.validate()
-      await addDataSource({
+      await saveDataSource({
         ...params,
         port: params.port.toString(),
       })
@@ -87,19 +48,7 @@ export function AddDataSource() {
         onCancel={() => setIsModalOpen(false)}
         destroyOnClose
         footer={() => {
-          return (
-            <div>
-              <Button className="mr-[12px]" loading={testBtnLoading} onClick={handleTestLink}>测试连接</Button>
-              <Button
-                loading={saveBtnLoading}
-                disabled={testDisabled}
-                type="primary"
-                onClick={handleSave}
-              >
-                保存
-              </Button>
-            </div>
-          )
+          return <ModalFooter handleSave={handleSave}></ModalFooter>
         }}
       >
         <DataSourceForm tables={tables} testDisabled={testDisabled} ref={DataSourceFormRef}></DataSourceForm>

@@ -1,5 +1,5 @@
-import { IUser, RepetitionAliasNameDto, SaveDataSourceDto, SourceListDto, TestLinkDto } from '@alice/types'
-import { Body, Controller, Get, HttpException, HttpStatus, Inject, Param, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common'
+import { EditDataSourceDto, IUser, PreviewDataSourceDto, RepetitionAliasNameDto, SaveDataSourceDto, SourceListDto, TestLinkDto } from '@alice/types'
+import { Body, Controller, Get, HttpException, HttpStatus, Inject, Param, Post, Query, Request, UnauthorizedException, UseGuards } from '@nestjs/common'
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
 import { Logger } from 'winston'
 import { DataSourceService } from './dataSource.service'
@@ -29,9 +29,23 @@ export class DataSourceController {
       throw new HttpException('操作失败', HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
+  @Post('editDataSource')
+  async editDataSource(@Body() config: EditDataSourceDto, @Request() req) {
+    const user = req.user as IUser
+    if (user)
+      await this.dataSourceService.editDataSource(config, user)
+    else
+      throw new HttpException('操作失败', HttpStatus.INTERNAL_SERVER_ERROR)
+  }
+
+  @Get('previewDataSource')
+  async previewDataSource(@Query() params: PreviewDataSourceDto) {
+    return this.dataSourceService.previewDataSource(Number(params.id))
+  }
+
   @Get('repetitionAliasName')
   async repetitionAliasName(@Param()params: RepetitionAliasNameDto) {
-    const data = await this.dataSourceService.repetitionAliasName(params.name)
+    const data = await this.dataSourceService.repetitionAliasName(params.name, params.id)
     return !!data
   }
 

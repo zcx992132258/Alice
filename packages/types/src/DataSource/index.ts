@@ -9,7 +9,7 @@ export interface IDataSource {
 
   host: string
 
-  port: string
+  port: number
 
   username: string
 
@@ -25,6 +25,11 @@ export interface IDataSource {
 
   createdUserId: string
 
+}
+
+export interface IPreviewDataSource {
+  colum: { field: string, type: string }[]
+  tableData: any[]
 }
 
 export type IDataSourceList = IList<IDataSource>

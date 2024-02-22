@@ -1,9 +1,13 @@
 'use client'
 import type { TableProps } from 'antd'
-import { Pagination, Table } from 'antd'
+import { Pagination, Table, Tooltip } from 'antd'
 import type { IDataSource } from '@alice/types/DataSource'
 import { useMount } from 'ahooks'
+import { EditOutlined, FileSearchOutlined } from '@ant-design/icons'
+import { useRef } from 'react'
 import { useDataSourceStore } from '../_store'
+import { EditDataSource } from './EditDataSource'
+import { PreviewDataSourceModal } from './PreviewDataSourceModal'
 
 export function SourceTable() {
   const setPageSize = useDataSourceStore(state => state.setPageSize)
@@ -13,6 +17,12 @@ export function SourceTable() {
   const total = useDataSourceStore(state => state.total)
   const size = useDataSourceStore(state => state.size)
   const page = useDataSourceStore(state => state.page)
+  const EditDataSourceRef = useRef<{
+    init: (data: IDataSource) => Promise<void>
+  }>()
+  const PreviewDataSourceModalRef = useRef<{
+    init: (id: number) => Promise<void>
+  }>()
 
   const columns: TableProps<IDataSource>['columns'] = [
     {
@@ -38,13 +48,32 @@ export function SourceTable() {
       dataIndex: 'tableName',
       key: 'tableName',
     },
+    {
+      title: '操作',
+      dataIndex: 'handle',
+      key: 'handle',
+      render: (_, data) => {
+        return (
+          <>
+            <Tooltip title="编辑">
+              <EditOutlined className="cursor-pointer" onClick={() => EditDataSourceRef.current.init(data)} />
+            </Tooltip>
+            <Tooltip title="预览">
+              <FileSearchOutlined className="cursor-pointer" onClick={() => PreviewDataSourceModalRef.current.init(data.id)} />
+            </Tooltip>
+          </>
+        )
+      },
+    },
   ]
 
   useMount(() => getDataSourceList())
 
   return (
     <div className="h-[calc(100% - 32px)] pt-[12px]">
-      <Table loading={loading} pagination={false} dataSource={dataSourceList} columns={columns} />
+      <EditDataSource ref={EditDataSourceRef}></EditDataSource>
+      <PreviewDataSourceModal ref={PreviewDataSourceModalRef}></PreviewDataSourceModal>
+      <Table loading={loading} pagination={false} dataSource={dataSourceList} columns={columns} rowKey="id" />
       <Pagination
         hideOnSinglePage
         defaultCurrent={page}

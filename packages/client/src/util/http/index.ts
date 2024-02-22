@@ -35,7 +35,7 @@ instance.interceptors.response.use(
   (error) => {
     const { code, message: msg } = error.response.data
     const clearUser = useUserStore.getState().clearUser
-    if (code === '401') {
+    if (String(code) === '401') {
       clearUser()
       message.error('登录过期')
       location.href = '/login'

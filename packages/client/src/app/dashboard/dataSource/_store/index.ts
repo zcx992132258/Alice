@@ -1,6 +1,6 @@
 'use client'
-import { apiGetDataSourceList, apiSaveDataSource } from '@alice/client/api/dataSource'
-import { IDataSource, SaveDataSourceDto } from '@alice/types/DataSource'
+import { apiEditDataSource, apiGetDataSourceList, apiSaveDataSource } from '@alice/client/api/dataSource'
+import { EditDataSourceDto, IDataSource, SaveDataSourceDto } from '@alice/types/DataSource'
 import { create } from 'zustand'
 
 export interface IDataSourceStore {
@@ -11,7 +11,8 @@ export interface IDataSourceStore {
   total: number
   loading: boolean
   setPageSize: (page: number, size: number) => void
-  addDataSource: (config: SaveDataSourceDto) => Promise<void>
+  saveDataSource: (config: SaveDataSourceDto) => Promise<void>
+  editDataSource: (config: EditDataSourceDto) => Promise<void>
   getDataSourceList: () => Promise<void>
   searchDataSourceList: (val: string) => Promise<void>
 }
@@ -28,8 +29,12 @@ export const useDataSourceStore = create<IDataSourceStore>((set, get) => {
     setPageSize: (page: number, size: number) => {
       set({ page, size })
     },
-    async addDataSource(config) {
+    async saveDataSource(config) {
       await apiSaveDataSource(config)
+      set({ page: 1 })
+    },
+    async editDataSource(config) {
+      await apiEditDataSource(config)
       set({ page: 1 })
     },
     async searchDataSourceList(val: string) {

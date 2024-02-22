@@ -8,12 +8,13 @@ import { apiLogin } from '@alice/client/api'
 interface IUserStore {
   user: IUser
   token: string
-  setUser: (user: IUser) => void // 添加 setUser 方法的定义
+  setUser: (user: IUser | null) => void // 添加 setUser 方法的定义
   clearUser: () => void // 添加 clearUser 方法的定义
+  setToken: (token: string | null) => void
   login: (data: { username: string, password: string }) => Promise<void>
 }
 
-export const useUserStore = create(persist<IUserStore>((set) => {
+export const useUserStore = create(persist<IUserStore>((set, get) => {
   const login: IUserStore['login'] = async (data) => {
     const value = await apiLogin(data)
     set({
@@ -26,8 +27,11 @@ export const useUserStore = create(persist<IUserStore>((set) => {
     user: null,
     token: null,
     setUser: user => set({ user }), // 使用 setUser 方法设置 user
-    setToken: (token: string) => set({ token }),
-    clearUser: () => {}, // 清除用户信息
+    setToken: token => set({ token }),
+    clearUser: () => {
+      get().setUser(null)
+      get().setToken(null)
+    }, // 清除用户信息
     login,
   }
 }, {
@@ -52,6 +56,7 @@ export const useUserStore = create(persist<IUserStore>((set) => {
     },
     removeItem(name) {
       const str = Cookies.get('userStore')
+      console.log(name)
       if (str) {
         const data = JSON.parse(str)
         data[name] = null

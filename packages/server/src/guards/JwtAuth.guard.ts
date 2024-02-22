@@ -45,26 +45,22 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       })
       // 如果user没有值 抛出异常
       if (isNil(user))
-        throw new HttpException('用户失效', HttpStatus.UNAUTHORIZED)
+        throw new UnauthorizedException('用户失效')
       const key = `${user.id}`
       cache = await this.redisService.getToken(key)
-      if (token !== cache) {
-        throw new HttpException(
-          '您的账号在其他地方登录，请重新登录',
-          HttpStatus.UNAUTHORIZED,
-        )
-      }
+      if (token !== cache)
+        throw new UnauthorizedException('您的账号在其他地方登录，请重新登录')
       await this.redisService.setToken(key, token)
     }
     catch (error) {
-      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR)
+      throw new UnauthorizedException(error)
     }
     return await value
   }
 
   handleRequest(err: Error, user) {
     if (err || !user)
-      throw err || new HttpException('用户失效', HttpStatus.UNAUTHORIZED)
+      throw err || new UnauthorizedException('用户失效')
     return user
   }
 }
