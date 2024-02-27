@@ -1,2 +1,2 @@
-export * from './Loading.tsx'
+export * from './Loading'
 export * from './LIneChart'

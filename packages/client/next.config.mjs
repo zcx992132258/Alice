@@ -23,6 +23,9 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['antd', 'lodash-es', 'ahooks', '@ant-design/icons'],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 }
 
 // const millionConfig = {

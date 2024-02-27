@@ -83,8 +83,7 @@ export function SourceTable() {
           setPageSize(page, size)
           getDataSourceList()
         }}
-      >
-      </Pagination>
+      />
     </div>
   )
 }
