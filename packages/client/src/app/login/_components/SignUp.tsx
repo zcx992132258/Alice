@@ -47,7 +47,7 @@ export function SignUp() {
         <FormItem
           className="w-[50%]"
           name="password"
-          rules={[{ required: true, message: '请输入密码' }, { max: 8, message: '用户名最多8个字符' }]}
+          rules={[{ required: true, message: '请输入密码' }, { max: 16, message: '密码最多16个字符' }]}
         >
           <Password className={style.input} placeholder="请输入密码" />
         </FormItem>
