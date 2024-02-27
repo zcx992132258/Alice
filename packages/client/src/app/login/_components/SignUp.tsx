@@ -21,7 +21,7 @@ export function SignUp() {
       password: values.password,
     })
     message.success('注册成功')
-    router.push('/')
+    router.push('/dashboard/dataSource')
   }
 
   return (

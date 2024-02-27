@@ -12,7 +12,7 @@ export function SignIn() {
   const onFinish = async (values: { username: string, password: string }) => {
     await login(values)
     message.success('登录成功')
-    router.push('/')
+    router.push('/dashboard/dataSource')
   }
 
   return (
