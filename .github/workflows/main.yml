@@ -9,23 +9,22 @@ jobs:
   deploy:
      runs-on: CentOS-7
 
-    steps:
+steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Create .env file
         run: |
           mkdir -p packages/server
-          echo "MYSQL_DB_HOST=${{ secrets.SERVER_HOST }}" >> packages/server/.env
-          echo "MYSQL_DB_PORT=my_username" >> packages/server/.env
-          echo "MYSQL_DB_USER=my_password" >> packages/server/.env
-          echo "MYSQL_DB_PASSWD=my_password" >> packages/server/.env
-          echo "MYSQL_DB_DATABASE=my_password" >> packages/server/.env
-          echo "NODE_ENV=my_password" >> packages/server/.env
-          echo "JWTSECRET=my_password" >> packages/server/.env
-          echo "REDIS_HOST=my_password" >> packages/server/.env
-          echo "REDIS_PORT=my_password" >> packages/server/.env
-          echo "REDIS_PASSWD=my_password" >> packages/server/.env
+          echo "MYSQL_DB_HOST=${{ secrets.MYSQL_DB_HOST }}" >> packages/server/.env
+          echo "MYSQL_DB_PORT=${{ secrets.MYSQL_DB_PORT }}" >> packages/server/.env
+          echo "MYSQL_DB_USER=${{ secrets.MYSQL_DB_USER }}" >> packages/server/.env
+          echo "MYSQL_DB_PASSWD=${{ secrets.MYSQL_DB_PASSWD }}" >> packages/server/.env
+          echo "MYSQL_DB_DATABASE=${{ secrets.MYSQL_DB_DATABASE }}" >> packages/server/.env
+          echo "JWTSECRET=${{ secrets.JWTSECRET }}" >> packages/server/.env
+          echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> packages/server/.env
+          echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> packages/server/.env
+          echo "REDIS_PASSWD=${{ secrets.REDIS_PASSWD }}" >> packages/server/.env
 
       - name: Copy files to server
         uses: appleboy/scp-action@master
