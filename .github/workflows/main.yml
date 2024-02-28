@@ -7,9 +7,9 @@ on:
 
 jobs:
   deploy:
-     runs-on: CentOS-7
+    runs-on: CentOS-7
 
-steps:
+    steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -34,7 +34,7 @@ steps:
           password: ${{ secrets.SERVER_PASSWORD }}
           source: './'
           target: /home/Alice
-          
+
       - name: SSH to server and restart application
         uses: appleboy/ssh-action@master
         with:
