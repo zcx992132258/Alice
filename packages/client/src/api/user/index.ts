@@ -9,5 +9,5 @@ export function apiLogin(params: LoginDto) {
 }
 
 export function apiRegister(params: RegisterDto) {
-  return http.post('/user/register', params)
+  return http.post('/user/register', params, { noAuth: true })
 }
