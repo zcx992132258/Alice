@@ -13,7 +13,11 @@
     "serve": " cd packages/server/ && pnpm run start",
     "types": " cd packages/types/ && pnpm run build:dev",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "buildServe": "cd packages/server/ && pnpm run build",
+    "buildClient": "cd packages/client/ && pnpm run build",
+    "buildTypes": "cd packages/types/ && pnpm run build",
+    "build": "pnpm run buildTypes& & pnpm run buildServe && pnpm run buildClient"
   },
   "dependencies": {
     "@types/react-grid-layout": "^1.3.2",
