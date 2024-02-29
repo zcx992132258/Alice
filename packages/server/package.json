@@ -6,7 +6,8 @@
   "author": "",
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build:types": "cd ../types && pnpm run build",
+    "build": "cd ../types && pnpm run build && cd ../server && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "cross-env NODE_ENV=development nest start -b swc -w --type-check",
     "start:dev": "nest start --watch",

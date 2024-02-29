@@ -19,5 +19,8 @@
   "dependencies": {
     "@alice/tools": "workspace:*",
     "class-validator": "^0.14.1"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0"
   }
 }
