@@ -1,6 +1,6 @@
 // 引入一个包
 const path = require('node:path')
-
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 // webpack中所有的配置信息都应该写在module.exports中
 module.exports = [
   {
@@ -39,6 +39,7 @@ module.exports = [
         chunks: 'all',
       },
     },
+    plugins: [new CleanWebpackPlugin()],
   },
   {
     mode: 'production',
@@ -80,5 +81,6 @@ module.exports = [
         chunks: 'all',
       },
     },
+    plugins: [new CleanWebpackPlugin()],
   },
 ]
