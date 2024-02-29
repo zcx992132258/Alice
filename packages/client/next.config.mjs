@@ -2,6 +2,7 @@ import million from 'million/compiler'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
   experimental: {
     turbo: {
