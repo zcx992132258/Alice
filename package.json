@@ -14,8 +14,8 @@
     "types": " cd packages/types/ && pnpm run build:dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "buildServe": "cd packages/server/ && pnpm run build",
-    "buildClient": "cd packages/client/ && pnpm run build",
+    "buildServe": "buildTypes && cd packages/server/ && pnpm run build",
+    "buildClient": "buildTypes && cd packages/client/ && pnpm run build",
     "buildTypes": "cd packages/types/ && pnpm run build",
     "build": "pnpm run buildTypes && pnpm run buildServe && pnpm run buildClient"
   },
