@@ -1,5 +1,7 @@
 'use client'
-import { CloseCircleOutlined, Segmented, Sider } from '@alice/client/lib/Antd'
+import { CloseCircleOutlined } from '@ant-design/icons'
+import { Segmented } from 'antd'
+import Sider from 'antd/es/layout/Sider'
 import { usePageContext } from '../Context'
 import { style } from '../'
 import { StyleSetting } from './StyleSetting'

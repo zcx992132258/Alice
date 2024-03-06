@@ -1,6 +1,7 @@
 'use client'
-import { Button, Modal } from '@alice/client/lib/Antd'
+
 import { useState } from 'react'
+import { Button, Modal } from 'antd'
 import { useDataSourceStore } from '../_store'
 import { useDataSourceForm } from '../_hooks/useDataSourceForm'
 import { DataSourceForm } from './DataSourceForm'

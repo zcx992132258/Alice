@@ -1,4 +1,5 @@
-import { CopyOutlined, DeleteOutlined, SettingOutlined, Tooltip } from '@alice/client/lib/Antd'
+import { CopyOutlined, DeleteOutlined, SettingOutlined } from '@ant-design/icons'
+import { Tooltip } from 'antd'
 import { usePageContext } from '..'
 
 export function PopoverContent() {

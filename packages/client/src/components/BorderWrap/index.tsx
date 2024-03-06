@@ -2,7 +2,7 @@
 import type { Component } from '@alice/types'
 import { memo, useRef } from 'react'
 import * as BorderComponents from '@alice/client/lib/DataV'
-import { useCreation, useSize } from '@alice/client/lib/ahook'
+import { useCreation, useSize } from 'ahooks'
 import styleCss from './index.module.scss'
 
 const components = Object.entries(BorderComponents).map((v) => {

@@ -3,8 +3,8 @@ import type { CSSProperties, LazyExoticComponent } from 'react'
 import { Suspense, memo } from 'react'
 import { BaseLineCharts, Loading } from '@alice/client/components'
 import { BASE_LINE_CHARTS } from '@alice/client/constants'
-import { useCreation } from '@alice/client/lib/ahook'
 import BorderWrap from '@alice/client/components/BorderWrap'
+import { useCreation } from 'ahooks'
 import { ToolPopover, usePageContext } from '.'
 
 export const LayoutComponent = memo((props: Component) => {

@@ -1,9 +1,6 @@
 'use client'
-import { Form, Layout as antdLayout } from 'antd'
+import { Form, Layout } from 'antd'
 
-export * from '@ant-design/icons'
-export * from 'antd/es'
-
-const { Header, Footer, Sider, Content } = antdLayout
+const { Header, Footer, Sider, Content } = Layout
 const { Item: FormItem } = Form
-export { Header, Footer, Sider, Content, FormItem }
+export { Header, Footer, Sider, Content, FormItem, Layout }

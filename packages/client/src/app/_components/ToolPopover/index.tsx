@@ -1,8 +1,8 @@
 'use client'
 import { memo, useEffect, useRef, useState } from 'react'
-import { Popover } from '@alice/client/lib/Antd'
-import { useCreation, useMemoizedFn } from '@alice/client/lib/ahook'
 import { SingleIntersectionObserver } from '@alice/client/util/SingleIntersectionObserver'
+import { Popover } from 'antd'
+import { useMemoizedFn } from 'ahooks'
 import { usePageContext } from '../Context'
 import { PopoverContent } from './PopoverContent'
 

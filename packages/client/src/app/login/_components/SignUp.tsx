@@ -3,26 +3,35 @@ import Password from 'antd/es/input/Password'
 import { useRouter } from 'next/navigation'
 import { apiRegister } from '@alice/client/api'
 import { useUserStore } from '@alice/client/store'
-import { Form, Input, message } from 'antd'
+import { Form, Input, Spin, message } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
+import { useState } from 'react'
 import style from './style/index.module.scss'
 
 export function SignUp() {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
   const login = useUserStore(state => state.login)
   const onFinish = async (values: { username: string, password: string, email: string }) => {
-    await apiRegister({
-      username: values.username,
-      password: values.password,
-      email: values.email,
-    })
-    await login({
-      username: values.username,
-      password: values.password,
-    })
+    setLoading(true)
+    try {
+      await apiRegister({
+        username: values.username,
+        password: values.password,
+        email: values.email,
+      })
+      await login({
+        username: values.username,
+        password: values.password,
+      })
 
-    message.success('注册成功')
-    router.push('/dashboard/dataSource')
+      message.success('注册成功')
+      router.push('/dashboard/dataSource')
+    }
+    catch (error) {
+      console.error(error)
+    }
+    setLoading(false)
   }
 
   return (
@@ -52,7 +61,9 @@ export function SignUp() {
         >
           <Password className={style.input} placeholder="请输入密码" />
         </FormItem>
-        <button className={style.btn}>注册</button>
+        <Spin spinning={loading}>
+          <button className={style.btn}>注册</button>
+        </Spin>
       </Form>
 
     </div>

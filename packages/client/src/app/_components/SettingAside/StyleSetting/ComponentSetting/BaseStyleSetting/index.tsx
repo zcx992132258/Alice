@@ -2,9 +2,11 @@ import type { SliderSingleProps } from 'antd/es/slider'
 import { cloneDeep } from 'lodash-es'
 import { useState } from 'react'
 import { usePageContext } from '@alice/client/app/_components'
-import type { CheckboxProps, ColorPickerProps, UploadFile, UploadProps } from '@alice/client/lib/Antd'
-import { Checkbox, Col, ColorPicker, LoadingOutlined, Modal, PlusOutlined, Row, Slider, Upload } from '@alice/client/lib/Antd'
-import { useCreation } from '@alice/client/lib/ahook'
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import type { CheckboxProps, ColorPickerProps, UploadFile, UploadProps } from 'antd'
+import { Checkbox, Col, ColorPicker, Modal, Row, Upload } from 'antd'
+import Slider from 'antd/es/slider'
+import { useCreation } from 'ahooks'
 
 // import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 export function BaseStyleSetting() {

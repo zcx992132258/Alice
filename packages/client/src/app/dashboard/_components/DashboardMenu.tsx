@@ -1,8 +1,8 @@
 'use client'
 
-import type { MenuProps } from '@alice/client/lib/Antd'
-import { Menu } from '@alice/client/lib/Antd'
 import { IconFont } from '@alice/client/lib/Icon'
+import type { MenuProps } from 'antd'
+import { Menu } from 'antd'
 import { usePathname, useRouter } from 'next/navigation'
 
 const MenuItems: MenuProps['items'] = [

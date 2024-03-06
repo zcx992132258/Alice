@@ -48,7 +48,7 @@ export const useDataSourceStore = create<IDataSourceStore>((set, get) => {
       set({ loading: true })
       const state = get()
       try {
-        const { total, page, list } = await apiGetDataSourceList({ page: state.page, size: state.size })
+        const { total, page, list } = await apiGetDataSourceList({ page: state.page, size: state.size, search: state.search })
         set({
           dataSourceList: list,
           total,

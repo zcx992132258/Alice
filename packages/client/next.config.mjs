@@ -27,6 +27,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  compiler: {
+    styledComponents: true,
+  },
 }
 
 // const millionConfig = {

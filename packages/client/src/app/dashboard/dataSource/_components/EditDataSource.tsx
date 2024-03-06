@@ -1,7 +1,7 @@
-import { Button, Modal, Spin } from '@alice/client/lib/Antd'
 import { forwardRef, useImperativeHandle, useState } from 'react'
 import type { IDataSource } from '@alice/types/DataSource'
 import { Loading } from '@alice/client/components'
+import { Modal, Spin } from 'antd'
 import { useDataSourceStore } from '../_store'
 import { useDataSourceForm } from '../_hooks/useDataSourceForm'
 import { DataSourceForm } from './DataSourceForm'

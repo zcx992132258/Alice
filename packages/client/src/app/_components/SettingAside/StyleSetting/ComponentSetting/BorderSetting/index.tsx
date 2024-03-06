@@ -3,9 +3,9 @@ import { cloneDeep } from 'lodash-es'
 import type { Component } from '@alice/types'
 import { Suspense } from 'react'
 import { usePageContext } from '@alice/client/app/_components'
-import { Col, ColorPicker, Row, Skeleton } from '@alice/client/lib/Antd'
-import { useCreation } from '@alice/client/lib/ahook'
 import * as BorderComponents from '@alice/client/lib/DataV'
+import { Col, ColorPicker, Row, Skeleton } from 'antd'
+import { useCreation } from 'ahooks'
 import StyleSettingCss from '../../style/index.module.scss'
 
 const components = Object.entries(BorderComponents).map((v) => {

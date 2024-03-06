@@ -1,9 +1,10 @@
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { cloneDeep } from 'lodash-es'
 import { usePageContext } from '@alice/client/app/_components'
-import type { ColorPickerProps } from '@alice/client/lib/Antd'
-import { Checkbox, Col, ColorPicker, Row, Select } from '@alice/client/lib/Antd'
 import { CreateFontSizeOptions } from '@alice/client/util/CreateFontSizeOptions'
+import type { ColorPickerProps } from 'antd'
+import { Col, ColorPicker, Row, Select } from 'antd'
+import Checkbox from 'antd/es/checkbox'
 
 const fontSizeOptions = CreateFontSizeOptions()
 

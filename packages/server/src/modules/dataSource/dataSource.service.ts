@@ -78,6 +78,7 @@ export class DataSourceService {
       const contentClient = await this.testLink(data)
       const colum = (await contentClient.query(`DESCRIBE ${data.tableName}`)).map(v => ({ field: v.Field, type: v.Type }))
       const tableData = await contentClient.query(`SELECT * FROM ${data.tableName} LIMIT 30`)
+      contentClient.destroy()
       return {
         colum,
         tableData,
@@ -93,7 +94,6 @@ export class DataSourceService {
     }, this.dataSourceRepository, {
       where: [{
         createdUser: user,
-      }, {
         aliasName: Like(`%${params.search}%`),
       }],
     })

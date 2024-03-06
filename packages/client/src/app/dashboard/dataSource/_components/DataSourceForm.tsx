@@ -1,6 +1,6 @@
-import { Form, Input, Select } from '@alice/client/lib/Antd'
 import { hostRegex, portRegex } from '@alice/tools/src/regex'
 import type { IDataSource } from '@alice/types/DataSource'
+import { Form, Input, Select } from 'antd'
 import { forwardRef, useImperativeHandle } from 'react'
 
 export const DataSourceForm = forwardRef((props: { tables: string[], testDisabled: boolean, sourceDate?: IDataSource }, ref) => {

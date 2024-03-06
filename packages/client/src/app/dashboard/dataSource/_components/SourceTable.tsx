@@ -59,7 +59,7 @@ export function SourceTable() {
               <EditOutlined className="cursor-pointer" onClick={() => EditDataSourceRef.current.init(data)} />
             </Tooltip>
             <Tooltip title="预览">
-              <FileSearchOutlined className="cursor-pointer" onClick={() => PreviewDataSourceModalRef.current.init(data.id)} />
+              <FileSearchOutlined className="cursor-pointer ml-[10px]" onClick={() => PreviewDataSourceModalRef.current.init(data.id)} />
             </Tooltip>
           </>
         )
