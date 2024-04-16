@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model data_source {
+  id            Int      @id @default(autoincrement())
+  database      String   @db.VarChar(10000)
+  host          String   @db.VarChar(255)
+  port          String   @db.VarChar(10)
+  username      String   @db.VarChar(255)
+  password      String   @db.VarChar(255)
+  tableName     String   @db.VarChar(255)
+  createTime    DateTime @default(now()) @db.DateTime(6)
+  updateTime    DateTime @default(now()) @db.DateTime(6)
+  createdUserId Int?
+  aliasName     String   @db.VarChar(255)
+  user          user?    @relation(fields: [createdUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_50f53bf830edcb6830454c85715")
+
+  @@index([createdUserId], map: "FK_50f53bf830edcb6830454c85715")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model user {
+  id          Int           @id @default(autoincrement())
+  username    String        @db.VarChar(8)
+  email       String        @db.VarChar(30)
+  createTime  DateTime      @default(now()) @db.DateTime(6)
+  updateTime  DateTime      @default(now()) @db.DateTime(6)
+  passwdSalt  String        @db.VarChar(255)
+  password    String        @db.VarChar(30)
+  data_source data_source[]
+}

@@ -9,7 +9,7 @@ export class RedisService {
   constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
   private redisMap = new Map<number, Redis>()
   private time = 60 * 60 * 24 * 30
-  async initRedis(method: string, db: number = 0) {
+  async initRedis(db: number = 0) {
     const isExist = this.redisMap.has(db)
     if (!isExist) {
       const redis = new Redis({ password: envConfig.REDIS_PASSWD, port: Number(envConfig.REDIS_PORT), host: envConfig.REDIS_HOST, db })
@@ -18,9 +18,9 @@ export class RedisService {
     return this.redisMap.get(db)
   }
 
-  async setToken(key: string, value: string) {
+  async set(key: string, value: string, db: number = 0) {
     try {
-      const redis = await this.initRedis('auth.certificate', 0)
+      const redis = await this.initRedis(db)
       await redis.setex(key, this.time, value)
     }
     catch (error) {
@@ -29,11 +29,10 @@ export class RedisService {
     }
   }
 
-  async getToken(key: string): Promise<string | null> {
+  async get(key: string, db: number = 0): Promise<string | null> {
     try {
       const redis = await this.initRedis(
-        'TokenGuard.canActivate',
-        0,
+        db,
       )
       const value = await redis.get(key)
       return value

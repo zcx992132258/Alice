@@ -6,7 +6,7 @@ import { DataSourceService } from './dataSource.service'
 
 @Controller('dataSource')
 export class DataSourceController {
-  constructor(private readonly dataSourceService: DataSourceService, @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
+  constructor(private readonly dataSourceService: DataSourceService) {}
 
   @Post('testLink')
   async testLink(@Body() config: TestLinkDto) {

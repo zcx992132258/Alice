@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { PassportModule } from '@nestjs/passport'
+import { RedisService } from '@alice/server/database/redis/redis.service'
 import { UserModule } from '../user/user.module'
 import { UserService } from '../user/user.service'
 import { AuthService } from './auth.service'

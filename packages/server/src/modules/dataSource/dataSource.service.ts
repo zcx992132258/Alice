@@ -1,16 +1,17 @@
 import { User } from '@alice/server/database/alice/user.entity'
 import { EditDataSourceDto, SaveDataSourceDto, SourceListDto, TestLinkDto } from '@alice/types/DataSource'
 import { IUser } from '@alice/types/User'
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { DataSource, Like, Repository, getRepository } from 'typeorm'
+import { DataSource, Like, Repository } from 'typeorm'
 import { DataSource as DataSourceEntity } from '@alice/server/database/alice/dataSource.entity'
 import { findLimit } from '@alice/server/utils/findLimit'
+import { CustomPrismaService } from 'nestjs-prisma'
+import { AliceClient } from '@alice/aliceDataBase'
 
 @Injectable()
 export class DataSourceService {
-  @InjectRepository(User)
-  private userRepository: Repository<User>
+  constructor(@Inject(AliceClient.name) private prismaAlice: CustomPrismaService<typeof AliceClient.client>) {}
 
   @InjectRepository(DataSourceEntity)
   private dataSourceRepository: Repository<DataSourceEntity>
@@ -33,7 +34,7 @@ export class DataSourceService {
   }
 
   async repetitionAliasName(name: string, id?: number) {
-    const data = await this.dataSourceRepository.findOne({
+    const data = await this.prismaAlice.client.data_source.findFirst({
       where: {
         aliasName: name,
       },
@@ -45,21 +46,31 @@ export class DataSourceService {
     const hasName = await this.repetitionAliasName(config.aliasName, id)
     if (hasName)
       throw new HttpException('名称已存在', HttpStatus.INTERNAL_SERVER_ERROR)
-    const userInfo = await this.userRepository.findOne({
+    const userInfo = await this.prismaAlice.client.user.findFirst({
       where: {
         id: user.id,
       },
     })
-    const dataSource = new DataSourceEntity()
-    Object.assign(dataSource, {
+    const data = {
       ...config,
-      createdUser: Promise.resolve(userInfo),
+      user: {
+        connect: {
+          id: userInfo.id,
+        },
+      },
+    }
+    await this.prismaAlice.client.data_source.upsert({
+      where: {
+        id,
+      },
+      update: data,
+      create: data,
+
     })
-    await this.dataSourceRepository.save(dataSource)
   }
 
   async editDataSource(params: EditDataSourceDto, user: IUser) {
-    const data = await this.dataSourceRepository.findOne({
+    const data = await this.prismaAlice.client.user.findFirst({
       where: {
         id: params.id,
       },
@@ -69,7 +80,7 @@ export class DataSourceService {
   }
 
   async previewDataSource(id: number) {
-    const data = await this.dataSourceRepository.findOne({
+    const data = await this.prismaAlice.client.data_source.findFirst({
       where: {
         id,
       },

@@ -9,7 +9,6 @@ import { useState } from 'react'
 import style from './style/index.module.scss'
 
 export function SignUp() {
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const login = useUserStore(state => state.login)
   const onFinish = async (values: { username: string, password: string, email: string }) => {
@@ -24,9 +23,7 @@ export function SignUp() {
         username: values.username,
         password: values.password,
       })
-
-      message.success('注册成功')
-      router.push('/dashboard/dataSource')
+      message.success('请前往您的邮箱检查邮件')
     }
     catch (error) {
       console.error(error)

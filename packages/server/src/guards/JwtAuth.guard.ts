@@ -47,10 +47,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       if (isNil(user))
         throw new UnauthorizedException('用户失效')
       const key = `${user.id}`
-      cache = await this.redisService.getToken(key)
+      cache = await this.redisService.get(key, 0)
       if (token !== cache)
         throw new UnauthorizedException('您的账号在其他地方登录，请重新登录')
-      await this.redisService.setToken(key, token)
+      await this.redisService.set(key, token)
     }
     catch (error) {
       throw new UnauthorizedException(error)

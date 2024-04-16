@@ -1,8 +1,10 @@
-import { Logger, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { JwtModule } from '@nestjs/jwt'
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { ConfigModule } from '@nestjs/config'
+import { CustomPrismaModule } from 'nestjs-prisma'
+import { AliceClient } from '@alice/aliceDataBase'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { mySqlTypeOrmModuleConfig } from './database'
@@ -17,18 +19,19 @@ import { HttpExceptionFilter } from './filter/http-exception.filter'
 import { AllExceptionsFilter } from './filter/any-exception.filter'
 import { LoggerMiddleware } from './middleware/logger.middleware'
 import { DataSourceModule } from './modules/dataSource/dataSource.module'
+import { EmailModule } from './modules/email/email.module'
 
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true,
     load: [() => { return { LOG_ON: true } }],
-  }), LogsModule, RedisModule, TypeOrmModule.forRoot(mySqlTypeOrmModuleConfig), JwtModule.register({
+  }), LogsModule, RedisModule, TypeOrmModule.forRoot(mySqlTypeOrmModuleConfig), CustomPrismaModule.forRoot({ ...AliceClient, isGlobal: true }), JwtModule.register({
     global: true,
     secret: envConfig.JWTSECRET,
     signOptions: {
       expiresIn: '30d',
     },
-  }), AuthModule, UserModule, DataSourceModule],
+  }), AuthModule, UserModule, DataSourceModule, EmailModule],
   controllers: [AppController],
   providers: [AppService, {
     provide: APP_GUARD,

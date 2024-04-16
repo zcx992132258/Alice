@@ -21,7 +21,7 @@ export default antfu(
       ],
       rules: {
         'curly': 'off',
-        'max-len': ['error', { code: 100 }],
+        'max-len': ['error', { code: 60 }],
       },
     }),
   },

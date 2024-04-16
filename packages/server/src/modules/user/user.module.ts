@@ -1,17 +1,15 @@
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { Module } from '@nestjs/common'
-import { User } from '@alice/server/database/alice/user.entity'
 import { RedisService } from '@alice/server/database/redis/redis.service'
+import { RedisModule } from '@alice/server/database/redis/redis.module'
 import { AuthService } from '../auth/auth.service'
+import { EmailService } from '../email/email.service'
 import { UserService } from './user.service'
 import { UserController } from './user.controller'
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-  ],
+  imports: [RedisModule],
   controllers: [UserController],
-  providers: [UserService, AuthService, RedisService],
-  exports: [TypeOrmModule, UserService],
+  providers: [RedisService, EmailService, UserService, AuthService],
+  exports: [UserService],
 })
 export class UserModule {}
