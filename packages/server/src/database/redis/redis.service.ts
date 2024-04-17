@@ -42,4 +42,16 @@ export class RedisService {
       throw new Error('redis连接失败')
     }
   }
+
+  async del(key: string, db: number = 0) {
+    try {
+      const redis = await this.initRedis(
+        db,
+      )
+      await redis.del(key)
+    }
+    catch (error) {
+      throw new Error('redis删除失败')
+    }
+  }
 }

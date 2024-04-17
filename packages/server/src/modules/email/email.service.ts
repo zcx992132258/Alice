@@ -2,6 +2,7 @@ import { envConfig } from '@alice/server/config'
 import { Injectable } from '@nestjs/common'
 import * as nodemailer from 'nodemailer'
 import { Transporter } from 'nodemailer'
+import Mail from 'nodemailer/lib/mailer'
 
 @Injectable()
 export class EmailService {
@@ -18,12 +19,10 @@ export class EmailService {
     })
   }
 
-  async sendMail(to: string, subject: string, text: string): Promise<void> {
+  async sendMail(config: Mail.Options): Promise<void> {
     const mailOptions = {
       from: envConfig.EMAIL_USER, // 发送者
-      to, // 接收者，可以是多个，逗号分隔
-      subject, // 主题
-      text, // 文本内容
+      ...config,
     }
 
     await this.transporter.sendMail(mailOptions)

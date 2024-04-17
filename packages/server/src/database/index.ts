@@ -1,5 +1,5 @@
 import type { TypeOrmModuleOptions } from '@nestjs/typeorm'
-import { envConfig } from '@alice/server/config'
+import { envConfig } from '../config'
 import { User } from './alice/user.entity'
 import { DataSource } from './alice/dataSource.entity'
 

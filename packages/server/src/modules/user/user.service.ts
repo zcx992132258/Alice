@@ -1,35 +1,54 @@
-import { User } from '@alice/server/database/alice/user.entity'
 import { HttpException, Inject, Injectable } from '@nestjs/common'
 import { encryptPassword, makeSalt } from '@alice/server/utils/cryptogram'
 import { LoginDto, RegisterDto } from '@alice/types/User/dto'
 import { CustomPrismaService } from 'nestjs-prisma'
-import { AliceClient } from '@alice/aliceDataBase'
-import { RedisService } from '@alice/server/database/redis/redis.service'
+import { AliceClient, UserField } from '@alice/aliceDataBase'
 
 @Injectable()
 export class UserService {
   constructor(@Inject(AliceClient.name) private prismaAlice: CustomPrismaService<typeof AliceClient.client>) {}
 
   async findOne(username: string) {
-    return await this.prismaAlice.client.user.findFirst({
+    return this.prismaAlice.client.user.findFirst({
       where: {
         username,
       },
     })
   }
 
+  async findUserByEmail(email: string) {
+    return this.prismaAlice.client.user.findFirst({
+      where: {
+        email,
+      },
+    })
+  }
+
   async register(user: RegisterDto) {
     const foundUser = await this.findOne(user.username)
-
     if (foundUser)
       throw new HttpException('用户已存在', 200)
-    const newUser = new User()
+    if (await this.findUserByEmail(user.email))
+      throw new HttpException('邮箱已被注册', 200)
     const salt = makeSalt()
-    newUser.username = user.username
-    newUser.passwdSalt = salt
-    newUser.password = encryptPassword(user.password, salt)
-    newUser.email = user.email
-    return newUser
+    const password = encryptPassword(user.password, salt)
+    await this.prismaAlice.client.user.create({
+      data: {
+        username: user.username,
+        email: user.email,
+        password,
+        passwdSalt: salt,
+      },
+    })
+  }
+
+  async preRegister(user: RegisterDto) {
+    const foundUser = await this.findOne(user.username)
+    if (foundUser)
+      throw new HttpException('用户已存在', 200)
+    if (await this.findUserByEmail(user.email))
+      throw new HttpException('邮箱已被注册', 200)
+    return user
   }
 
   async login(user: LoginDto) {

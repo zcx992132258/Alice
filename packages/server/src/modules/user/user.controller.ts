@@ -1,11 +1,13 @@
-import { Body, Controller, HttpException, HttpStatus, Inject, Post, Request, UseGuards } from '@nestjs/common'
+import { Body, Controller, HttpException, HttpStatus, Post, Request, UseGuards } from '@nestjs/common'
 import { Public } from '@alice/server/auth'
 import { LocalAuthGuard } from '@alice/server/guards/localAuth.guard'
-import { RegisterDto } from '@alice/types'
+import { RealRegisterDto, RegisterDto } from '@alice/types'
 import { RedisService } from '@alice/server/database/redis/redis.service'
 import { v4 as uuid } from 'uuid'
+import { envConfig } from '@alice/server/config'
 import { AuthService } from '../auth/auth.service'
 import { EmailService } from '../email/email.service'
+import { RegisterHtmlContent } from '../email/HtmlContent'
 import { UserService } from './user.service'
 
 @Controller('user')
@@ -27,10 +29,37 @@ export class UserController {
   }
 
   @Public()
-  @Post('register')
+  @Post('realRegister')
+  async realRegister(@Body() data: RealRegisterDto) {
+    const { email } = data
+    const redisHasUser = await this.redisService.get(email)
+    if (redisHasUser) {
+      const userData = JSON.parse(redisHasUser)
+      const { uuid, ...user } = userData
+      if (uuid === data.id) {
+        await this.userService.register(user)
+        await this.redisService.del(email)
+      }
+    }
+    throw new HttpException('邮件已过期请重新注册', HttpStatus.INTERNAL_SERVER_ERROR)
+  }
+
+  @Public()
+  @Post('preRegister')
   async register(@Body() user: RegisterDto) {
-    const userData = await this.userService.register(user)
-    this.redisService.set(uuid(), JSON.stringify(userData), 1)
-    this.emailService.sendMail(user.email, 'alice-注册', '请点击链接激活')
+    const redisHasUser = await this.redisService.get(user.email)
+    if (redisHasUser)
+      await this.redisService.del(user.email)
+    const userData = await this.userService.preRegister(user)
+    const key = uuid()
+    await this.redisService.set(userData.email, JSON.stringify({
+      userData,
+      uuid: key,
+    }), 1)
+    this.emailService.sendMail({
+      to: user.email,
+      subject: '欢迎加入Alice',
+      html: RegisterHtmlContent(`${envConfig.FRONT_URL}/register?email=${userData.email}`),
+    })
   }
 }
