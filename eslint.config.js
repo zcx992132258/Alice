@@ -14,8 +14,8 @@ export default antfu(
   {
     jsx: true,
     typescript: true,
-    ignorePatterns: ['**/.env', '**/pnpm-lock.yaml', '**/.gitignore'],
     ...compat.config({
+      ignorePatterns: ['**/.env', 'pnpm-lock.yaml', '**/.gitignore', '**/*.json'],
       extends: [
         'standard-jsx',
       ],

@@ -22,30 +22,47 @@ import { DataSourceModule } from './modules/dataSource/dataSource.module'
 import { EmailModule } from './modules/email/email.module'
 
 @Module({
-  imports: [ConfigModule.forRoot({
-    isGlobal: true,
-    load: [() => { return { LOG_ON: true } }],
-  }), LogsModule, RedisModule, TypeOrmModule.forRoot(mySqlTypeOrmModuleConfig), CustomPrismaModule.forRoot({ ...AliceClient, isGlobal: true }), JwtModule.register({
-    global: true,
-    secret: envConfig.JWTSECRET,
-    signOptions: {
-      expiresIn: '30d',
-    },
-  }), AuthModule, UserModule, DataSourceModule, EmailModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [() => { return { LOG_ON: true } }],
+    }),
+    LogsModule,
+    RedisModule,
+    TypeOrmModule.forRoot(mySqlTypeOrmModuleConfig),
+    CustomPrismaModule.forRoot({ ...AliceClient, isGlobal: true }),
+    JwtModule.register({
+      global: true,
+      secret: envConfig.JWTSECRET,
+      signOptions: {
+        expiresIn: '30d',
+      },
+    }),
+    AuthModule,
+    UserModule,
+    DataSourceModule,
+    EmailModule,
+  ],
   controllers: [AppController],
-  providers: [AppService, {
-    provide: APP_GUARD,
-    useClass: JwtAuthGuard,
-  }, {
-    provide: APP_INTERCEPTOR,
-    useClass: TransformInterceptor,
-  }, {
-    provide: APP_FILTER,
-    useClass: AllExceptionsFilter,
-  }, {
-    provide: APP_FILTER,
-    useClass: HttpExceptionFilter,
-  }],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

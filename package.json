@@ -17,7 +17,8 @@
     "buildServe": "pnpm buildTypes && cd packages/server/ && pnpm run build",
     "buildClient": "pnpm buildTypes && cd packages/client/ && pnpm run build",
     "buildTypes": "cd packages/types/ && pnpm run build",
-    "build": "pnpm run buildTypes && pnpm run buildServe && pnpm run buildClient"
+    "build": "pnpm run buildTypes && pnpm run buildServe && pnpm run buildClient",
+    "prepare": "npx simple-git-hooks"
   },
   "dependencies": {
     "@types/react-grid-layout": "^1.3.2",
@@ -29,14 +30,15 @@
     "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^1.1.0",
-    "@eslint/eslintrc": "^2.1.3",
-    "eslint": "^8.53.0",
+    "@antfu/eslint-config": "^2.15.0",
+    "@eslint-react/eslint-plugin": "^1.5.8",
     "eslint-config-standard-jsx": "^11.0.0",
     "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
     "lint-staged": "^14.0.1",
     "simple-git-hooks": "^2.9.0",
-    "typescript": "5.1.6"
+    "typescript": "^5.4.5"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

@@ -1,15 +1,10 @@
-import { IsEmail, IsNotEmpty, IsString, Matches } from 'class-validator'
+import { IsEmail, IsString } from 'class-validator'
 
 export class RegisterDto {
-  @IsString({ message: '请输入用户名' })
-  @IsNotEmpty({ message: '请输入用户名' })
-  username!: string
-
-  @IsString({ message: '请输入密码' })
-  @IsNotEmpty({ message: '请输入密码' })
-  password!: string
-
-  @IsNotEmpty({ message: '请输入邮箱地址' })
-  @IsEmail({}, { message: '邮箱格式错误' })
+  @IsString({ message: '注册失败请重试' })
+  @IsEmail({}, { message: '注册失败请重试' })
   email!: string
+
+  @IsString({ message: '注册失败请重试' })
+  id!: string
 }

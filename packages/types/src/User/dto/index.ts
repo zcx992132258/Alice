@@ -1,5 +1,5 @@
 export * from './login.dto'
 
-export * from './register.dto'
+export * from './preRegister.dto'
 
-export * from './realRegister.dto'
+export * from './register.dto'

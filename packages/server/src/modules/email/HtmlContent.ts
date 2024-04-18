@@ -36,7 +36,7 @@ export function RegisterHtmlContent(link: string) {
             margin-bottom: 20px;
         }
 
-        #alice-container  .btn {
+        #alice-container  .inviteBtn {
             display: inline-block;
             padding: 10px 20px;
             background-color: #4CAF50;
@@ -46,7 +46,7 @@ export function RegisterHtmlContent(link: string) {
             transition: background-color 0.3s ease;
         }
 
-        #alice-container .btn:hover {
+        #alice-container .inviteBtn:hover {
             background-color: #45a049 !important;
         }
     </style>
@@ -57,7 +57,7 @@ export function RegisterHtmlContent(link: string) {
    <div class="container" id="alice-container">
    <h1>欢迎使用 Alice</h1>
    <p>谢谢你选择Alice。我们很高兴你能加入我们!</p>
-   <a href="${link}" onclick="handleClick()" class="btn">加入alice</a>
+   <a href="${link}" onclick="handleClick()" class="inviteBtn">加入alice</a>
 </div>
    </div>
 </body>

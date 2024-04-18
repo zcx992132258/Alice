@@ -8,7 +8,6 @@ import { Logger } from 'winston'
 export class RedisService {
   constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
   private redisMap = new Map<number, Redis>()
-  private time = 60 * 60 * 24 * 30
   async initRedis(db: number = 0) {
     const isExist = this.redisMap.has(db)
     if (!isExist) {
@@ -18,10 +17,10 @@ export class RedisService {
     return this.redisMap.get(db)
   }
 
-  async set(key: string, value: string, db: number = 0) {
+  async set(key: string, value: string, time: number, db: number = 0) {
     try {
       const redis = await this.initRedis(db)
-      await redis.setex(key, this.time, value)
+      await redis.setex(key, time, value)
     }
     catch (error) {
       this.logger.warn('redis连接失败 setToken失败')

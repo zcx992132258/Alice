@@ -9,6 +9,7 @@ import { IS_PUBLIC_KEY } from '../auth'
 import { User } from '../database/alice/user.entity'
 import { envConfig } from '../config'
 import { RedisService } from '../database/redis/redis.service'
+import { TOKEN_EXPIRE } from '../constants'
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -47,10 +48,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       if (isNil(user))
         throw new UnauthorizedException('用户失效')
       const key = `${user.id}`
-      cache = await this.redisService.get(key, 0)
+      cache = await this.redisService.get(key)
       if (token !== cache)
         throw new UnauthorizedException('您的账号在其他地方登录，请重新登录')
-      await this.redisService.set(key, token)
+      await this.redisService.set(key, token, TOKEN_EXPIRE)
     }
     catch (error) {
       throw new UnauthorizedException(error)

@@ -1,5 +1,5 @@
 import { http } from '@alice/client/util/http'
-import { IUser, LoginDto, RegisterDto } from '@alice/types/User'
+import { IUser, LoginDto, PreRegisterDto, RegisterDto } from '@alice/types/User'
 
 export function apiLogin(params: LoginDto) {
   return http.post<{
@@ -8,6 +8,10 @@ export function apiLogin(params: LoginDto) {
   }>('/user/login', params, { noAuth: true })
 }
 
+export function apiPreRegisterDto(params: PreRegisterDto) {
+  return http.post('/user/PreRegisterDto', params, { noAuth: true })
+}
+
 export function apiRegister(params: RegisterDto) {
-  return http.post('/user/register', params, { noAuth: true })
+  return http.post<PreRegisterDto>('/user/register', params, { noAuth: true })
 }

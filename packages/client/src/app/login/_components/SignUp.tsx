@@ -1,8 +1,6 @@
 'use client'
 import Password from 'antd/es/input/Password'
-import { useRouter } from 'next/navigation'
-import { apiRegister } from '@alice/client/api'
-import { useUserStore } from '@alice/client/store'
+import { apiPreRegisterDto } from '@alice/client/api'
 import { Form, Input, Spin, message } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
 import { useState } from 'react'
@@ -10,18 +8,13 @@ import style from './style/index.module.scss'
 
 export function SignUp() {
   const [loading, setLoading] = useState(false)
-  const login = useUserStore(state => state.login)
   const onFinish = async (values: { username: string, password: string, email: string }) => {
     setLoading(true)
     try {
-      await apiRegister({
+      await apiPreRegisterDto({
         username: values.username,
         password: values.password,
         email: values.email,
-      })
-      await login({
-        username: values.username,
-        password: values.password,
       })
       message.success('请前往您的邮箱检查邮件')
     }

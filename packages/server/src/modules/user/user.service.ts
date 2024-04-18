@@ -1,8 +1,8 @@
-import { HttpException, Inject, Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common'
 import { encryptPassword, makeSalt } from '@alice/server/utils/cryptogram'
-import { LoginDto, RegisterDto } from '@alice/types/User/dto'
+import { LoginDto, PreRegisterDto, RegisterDto } from '@alice/types/User/dto'
 import { CustomPrismaService } from 'nestjs-prisma'
-import { AliceClient, UserField } from '@alice/aliceDataBase'
+import { AliceClient } from '@alice/aliceDataBase'
 
 @Injectable()
 export class UserService {
@@ -24,12 +24,12 @@ export class UserService {
     })
   }
 
-  async register(user: RegisterDto) {
+  async register(user: PreRegisterDto) {
     const foundUser = await this.findOne(user.username)
     if (foundUser)
-      throw new HttpException('用户已存在', 200)
-    if (await this.findUserByEmail(user.email))
-      throw new HttpException('邮箱已被注册', 200)
+      throw new HttpException('用户已存在', HttpStatus.INTERNAL_SERVER_ERROR)
+    // if (await this.findUserByEmail(user.email))
+    //   throw new HttpException('邮箱已被注册', 200)
     const salt = makeSalt()
     const password = encryptPassword(user.password, salt)
     await this.prismaAlice.client.user.create({
@@ -42,12 +42,12 @@ export class UserService {
     })
   }
 
-  async preRegister(user: RegisterDto) {
+  async PreRegisterDto(user: PreRegisterDto) {
     const foundUser = await this.findOne(user.username)
     if (foundUser)
-      throw new HttpException('用户已存在', 200)
-    if (await this.findUserByEmail(user.email))
-      throw new HttpException('邮箱已被注册', 200)
+      throw new HttpException('用户已存在', HttpStatus.INTERNAL_SERVER_ERROR)
+    // if (await this.findUserByEmail(user.email))
+    //   throw new HttpException('邮箱已被注册', 200)
     return user
   }
 
@@ -55,10 +55,10 @@ export class UserService {
     const foundUser = await this.findOne(user.username)
 
     if (!foundUser)
-      throw new HttpException('用户名不存在', 200)
+      throw new HttpException('用户名不存在', HttpStatus.INTERNAL_SERVER_ERROR)
 
     if (foundUser.password !== encryptPassword(user.password, foundUser.passwdSalt))
-      throw new HttpException('密码错误', 200)
+      throw new HttpException('密码错误', HttpStatus.INTERNAL_SERVER_ERROR)
 
     return foundUser
   }

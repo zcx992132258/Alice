@@ -1,4 +1,5 @@
-import { Button, Result } from 'antd/es'
+import { Result } from 'antd/es'
+import { RegisterButton } from './_components/RegisterButton'
 
 function page() {
   return (
@@ -7,11 +8,8 @@ function page() {
         status="success"
         title="欢迎使用Alice！"
         subTitle="谢谢你选择Alice。我们很高兴你能加入我们!"
-        extra={[
-          <Button type="primary">进入Alice</Button>,
-        ]}
+        extra={<RegisterButton></RegisterButton>}
       />
-
     </div>
   )
 }
