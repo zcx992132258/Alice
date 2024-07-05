@@ -1,23 +1,40 @@
+import querystring from 'node:querystring'
+import url from 'node:url'
 import { Inject, Injectable, NestMiddleware } from '@nestjs/common'
-import { NextFunction, Request, Response } from 'express'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
 import { Logger } from 'winston'
+import { getBody } from '../utils/getBody'
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
-  use(req: Request, res: Response, next: NextFunction) {
-    const { statusCode: code } = res
+  async use(req: FastifyRequest['raw'], res: FastifyReply['raw'], next: () => void) {
+    const { statusCode: code } = req
     next()
+    // 获取客户端 IP 地址
+    const ip = req.socket.remoteAddress
+    // 获取原始 URL
+    const originalUrl = req.url
+
+    // 解析 URL
+    const parsedUrl = new URL(req.url)
+
+    // 获取查询参数
+    const queryParams = parsedUrl.searchParams
+    const body = await getBody(res)
+    // 获取路径
+    const path = parsedUrl.pathname
+    const pathParams = path.split('/').filter(Boolean) // 分割路径并过滤掉空字符串
     const logFormat = ` >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    Request original url: ${req.originalUrl}
+    Request original url: ${originalUrl}
     Method: ${req.method}
-    IP: ${req.ip}
+    IP: ${ip}
     Status code: ${code}
-    Parmas: ${JSON.stringify(req.params)}
-    Query: ${JSON.stringify(req.query)}
+    Parmas: ${JSON.stringify(pathParams)}
+    Query: ${JSON.stringify(queryParams)}
     Body: ${JSON.stringify(
-      req.body,
+      body,
     )} \n  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   `
     if (code >= 500)
