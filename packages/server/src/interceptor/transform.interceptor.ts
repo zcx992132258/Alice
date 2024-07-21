@@ -13,19 +13,19 @@ import { Logger } from 'winston'
 export class TransformInterceptor implements NestInterceptor {
   constructor(
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
-  ) {}
+  ) { }
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const { req } = context.getArgByIndex(1)
-
+    const ctx = context.switchToHttp()
+    const request = ctx.getRequest()
     return next.handle().pipe(
       map((data) => {
         const logFormat = ` 
           <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-          Request original url: ${req.originalUrl}
-          Method: ${req.method}
-          IP: ${req.ip}
-          User: ${JSON.stringify(req.user)}
+          Request original url: ${request.originalUrl}
+          Method: ${request.method}
+          IP: ${request.ip}
+          User: ${JSON.stringify(request.user)}
           Response data:\n ${JSON.stringify(data)}
           <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`
         this.logger.info(logFormat)
