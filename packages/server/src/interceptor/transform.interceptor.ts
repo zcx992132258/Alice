@@ -17,7 +17,7 @@ export class TransformInterceptor implements NestInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const ctx = context.switchToHttp()
-    const request = ctx.getRequest()
+    let request = ctx.getRequest()
     return next.handle().pipe(
       map((data) => {
         const logFormat = ` 
@@ -25,10 +25,13 @@ export class TransformInterceptor implements NestInterceptor {
           Request original url: ${request.originalUrl}
           Method: ${request.method}
           IP: ${request.ip}
+          Query:${JSON.stringify(request.query)}
+          Body:${JSON.stringify(request.body)}
           User: ${JSON.stringify(request.user)}
           Response data:\n ${JSON.stringify(data)}
           <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<`
         this.logger.info(logFormat)
+        request = null
         return {
           data,
           code: 200,
