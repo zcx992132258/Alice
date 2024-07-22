@@ -1,7 +1,7 @@
 import { Body, Controller, HttpException, HttpStatus, Post, Request, UseGuards } from '@nestjs/common'
 import { Public } from '@alice/server/auth'
 import { LocalAuthGuard } from '@alice/server/guards/localAuth.guard'
-import { PreRegisterDto, RegisterDto } from '@alice/types'
+import { LoginDto, PreRegisterDto, RegisterDto } from '@alice/types'
 import { RedisService } from '@alice/server/database/redis/redis.service'
 import { v4 as uuid } from 'uuid'
 import { envConfig } from '@alice/server/config'
@@ -18,20 +18,18 @@ export class UserController {
     private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly emailService: EmailService,
-  ) {}
+  ) { }
 
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req) {
-    if (req.user) {
-      const data = await this.authService.payloadToken({
-        ...req.user,
-      })
-      await this.redisService.set(req.user.id.toString(), data.token, TOKEN_EXPIRE)
-      return data
-    }
-    throw new HttpException('登录失败', HttpStatus.INTERNAL_SERVER_ERROR)
+  async login(@Body() user: LoginDto) {
+    const userInfo = await this.authService.validateUser(user.username, user.password)
+    const data = await this.authService.payloadToken({
+      ...userInfo,
+    })
+    await this.redisService.set(userInfo.id.toString(), data.token, TOKEN_EXPIRE)
+    return data
   }
 
   @Public()

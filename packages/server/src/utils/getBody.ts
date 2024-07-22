@@ -1,6 +1,6 @@
-import { FastifyReply } from 'fastify'
+import { FastifyRequest } from 'fastify'
 
-export function getBody(req: FastifyReply['raw']) {
+export function getBody(req: FastifyRequest['raw']) {
   return new Promise((resolve) => {
     let body = ''
     req.on('data', (chunk) => {
@@ -12,6 +12,7 @@ export function getBody(req: FastifyReply['raw']) {
         parsedBody = JSON.parse(body)
       }
       catch (e) {
+        console.error(e)
         parsedBody = body
       }
       resolve(parsedBody)

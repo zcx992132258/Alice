@@ -18,11 +18,11 @@ export class LoggerMiddleware implements NestMiddleware {
     const originalUrl = req.url
 
     // 解析 URL
-    const parsedUrl = new URL(req.url)
+    const parsedUrl = new URL(`${req.protocol as string}://${req.hostname as string}${req.url}`)
 
     // 获取查询参数
     const queryParams = parsedUrl.searchParams
-    const body = await getBody(res)
+    const body = await getBody(req)
     // 获取路径
     const path = parsedUrl.pathname
     const pathParams = path.split('/').filter(Boolean) // 分割路径并过滤掉空字符串
