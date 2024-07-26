@@ -12,7 +12,7 @@
   },
   "main": "index.ts",
   "scripts": {
-    "build": "vercel env pull .env && pnpm prisma generate && pnpm webpack"
+    "build": "pnpm prisma generate && pnpm webpack"
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
