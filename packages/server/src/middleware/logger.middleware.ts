@@ -8,7 +8,7 @@ import { getBody } from '../utils/getBody'
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {}
+  constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) { }
   async use(req: FastifyRequest['raw'], res: FastifyReply['raw'], next: () => void) {
     const { statusCode: code } = req
     next()
@@ -18,7 +18,7 @@ export class LoggerMiddleware implements NestMiddleware {
     const originalUrl = req.url
 
     // 解析 URL
-    const parsedUrl = new URL(`${req.protocol as string}://${req.hostname as string}${req.url}`)
+    const parsedUrl = new URL(`${(req as any).protocol}://${(req as any).hostname as string}${req.url}`)
 
     // 获取查询参数
     const queryParams = parsedUrl.searchParams

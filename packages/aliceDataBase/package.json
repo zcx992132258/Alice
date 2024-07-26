@@ -12,7 +12,7 @@
   },
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "vercel env pull .env && pnpm prisma generate && pnpm webpack"
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
